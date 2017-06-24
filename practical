@@ -1,0 +1,1226 @@
+ PRACTICE WORK:
+
+
+
+
+chhaya@beryl-To-be-filled-by-O-E-M:~$ psql
+psql (9.5.7)
+Type "help" for help.
+
+chhaya=# \d
+                  List of relations
+ Schema |          Name           |   Type   | Owner  
+--------+-------------------------+----------+--------
+ public | cities                  | table    | chhaya
+ public | playground              | table    | chhaya
+ public | playground_equip_id_seq | sequence | chhaya
+ public | weather                 | table    | chhaya
+(4 rows)
+
+chhaya=# createdb -h chhaya -p 5432 -U postgres testdb
+chhaya-# \d
+                  List of relations
+ Schema |          Name           |   Type   | Owner  
+--------+-------------------------+----------+--------
+ public | cities                  | table    | chhaya
+ public | playground              | table    | chhaya
+ public | playground_equip_id_seq | sequence | chhaya
+ public | weather                 | table    | chhaya
+(4 rows)
+
+chhaya-# createdb -h localhost -p 5432 -U postgres testdb
+chhaya-# \l
+                             List of databases
+   Name    |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+-----------+----------+----------+---------+-------+-----------------------
+ chhaya    | postgres | UTF8     | en_IN   | en_IN | 
+ postgres  | postgres | UTF8     | en_IN   | en_IN | 
+ template0 | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+(4 rows)
+
+chhaya-# \q
+chhaya@beryl-To-be-filled-by-O-E-M:~$ psql
+psql (9.5.7)
+Type "help" for help.
+
+chhaya=# \q
+chhaya@beryl-To-be-filled-by-O-E-M:~$ exit
+logout
+beryl@beryl-To-be-filled-by-O-E-M:~$ sudo -i -u chhaya
+chhaya@beryl-To-be-filled-by-O-E-M:~$ psql
+psql (9.5.7)
+Type "help" for help.
+
+chhaya=# \l
+                             List of databases
+   Name    |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+-----------+----------+----------+---------+-------+-----------------------
+ chhaya    | postgres | UTF8     | en_IN   | en_IN | 
+ postgres  | postgres | UTF8     | en_IN   | en_IN | 
+ template0 | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+(4 rows)
+
+chhaya=# \q
+chhaya@beryl-To-be-filled-by-O-E-M:~$ createdb -h chhaya -p 5432 -U chhaya testdb
+createdb: could not connect to database template1: could not translate host name "chhaya" to address: Name or service not known
+chhaya@beryl-To-be-filled-by-O-E-M:~$ createdb -h localhost -p 5432 -U chhaya testdb
+Password: 
+Password: 
+createdb: could not connect to database template1: FATAL:  password authentication failed for user "chhaya"
+FATAL:  password authentication failed for user "chhaya"
+chhaya@beryl-To-be-filled-by-O-E-M:~$ createdb -h localhost -p 5432 -U chhaya testdb
+Password: 
+Password: 
+createdb: could not connect to database template1: FATAL:  password authentication failed for user "chhaya"
+FATAL:  password authentication failed for user "chhaya"
+chhaya@beryl-To-be-filled-by-O-E-M:~$ createdb -h localhost -p 5432 -U chhaya testdb
+Password: 
+Password: 
+createdb: could not connect to database template1: FATAL:  password authentication failed for user "chhaya"
+FATAL:  password authentication failed for user "chhaya"
+chhaya@beryl-To-be-filled-by-O-E-M:~$ psql
+psql (9.5.7)
+Type "help" for help.
+
+chhaya=# createdb testdb
+chhaya-# \d
+                  List of relations
+ Schema |          Name           |   Type   | Owner  
+--------+-------------------------+----------+--------
+ public | cities                  | table    | chhaya
+ public | playground              | table    | chhaya
+ public | playground_equip_id_seq | sequence | chhaya
+ public | weather                 | table    | chhaya
+(4 rows)
+
+chhaya-# \l
+                             List of databases
+   Name    |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+-----------+----------+----------+---------+-------+-----------------------
+ chhaya    | postgres | UTF8     | en_IN   | en_IN | 
+ postgres  | postgres | UTF8     | en_IN   | en_IN | 
+ template0 | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+(4 rows)
+
+chhaya-# psql -d testdb
+chhaya-# \l
+                             List of databases
+   Name    |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+-----------+----------+----------+---------+-------+-----------------------
+ chhaya    | postgres | UTF8     | en_IN   | en_IN | 
+ postgres  | postgres | UTF8     | en_IN   | en_IN | 
+ template0 | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+(4 rows)
+
+chhaya-# \c testdb
+FATAL:  database "testdb" does not exist
+Previous connection kept
+chhaya-# \q
+chhaya@beryl-To-be-filled-by-O-E-M:~$ createdb testdb
+chhaya@beryl-To-be-filled-by-O-E-M:~$ psql testdb
+psql (9.5.7)
+Type "help" for help.
+
+testdb=# \l
+                             List of databases
+   Name    |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+-----------+----------+----------+---------+-------+-----------------------
+ chhaya    | postgres | UTF8     | en_IN   | en_IN | 
+ postgres  | postgres | UTF8     | en_IN   | en_IN | 
+ template0 | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+ testdb    | chhaya   | UTF8     | en_IN   | en_IN | 
+(5 rows)
+
+testdb=# \c testdb
+You are now connected to database "testdb" as user "chhaya".
+testdb=# \q
+chhaya@beryl-To-be-filled-by-O-E-M:~$ sudo -i -u beryl
+[sudo] password for chhaya: 
+chhaya is not in the sudoers file.  This incident will be reported.
+chhaya@beryl-To-be-filled-by-O-E-M:~$ sudo -i -u beryl
+[sudo] password for chhaya: 
+Sorry, try again.
+[sudo] password for chhaya: 
+Sorry, try again.
+[sudo] password for chhaya: 
+chhaya is not in the sudoers file.  This incident will be reported.
+chhaya@beryl-To-be-filled-by-O-E-M:~$ psql
+psql (9.5.7)
+Type "help" for help.
+
+chhaya=# \q
+chhaya@beryl-To-be-filled-by-O-E-M:~$ psql -h localhost -p 5432 -U chhaya testdbPassword for user chhaya: 
+psql: FATAL:  password authentication failed for user "chhaya"
+FATAL:  password authentication failed for user "chhaya"
+chhaya@beryl-To-be-filled-by-O-E-M:~$ psql -h localhost -p 5432 -U chhaya testdbPassword for user chhaya: 
+psql: FATAL:  password authentication failed for user "chhaya"
+FATAL:  password authentication failed for user "chhaya"
+chhaya@beryl-To-be-filled-by-O-E-M:~$ psql -h localhost -p 5432 -U chhaya testdbPassword for user chhaya: 
+psql: FATAL:  password authentication failed for user "chhaya"
+FATAL:  password authentication failed for user "chhaya"
+chhaya@beryl-To-be-filled-by-O-E-M:~$ psql
+psql (9.5.7)
+Type "help" for help.
+
+chhaya=# \q
+chhaya@beryl-To-be-filled-by-O-E-M:~$ Drop database testdb
+Drop: command not found
+chhaya@beryl-To-be-filled-by-O-E-M:~$ Drop database testdb;
+Drop: command not found
+chhaya@beryl-To-be-filled-by-O-E-M:~$ Drop database if exists testdb;
+Drop: command not found
+chhaya@beryl-To-be-filled-by-O-E-M:~$ psql
+psql (9.5.7)
+Type "help" for help.
+
+chhaya=# drop database testdb;
+DROP DATABASE
+chhaya=# \l
+                             List of databases
+   Name    |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+-----------+----------+----------+---------+-------+-----------------------
+ chhaya    | postgres | UTF8     | en_IN   | en_IN | 
+ postgres  | postgres | UTF8     | en_IN   | en_IN | 
+ template0 | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+(4 rows)
+
+chhaya=# create table company(
+chhaya(# id int primary key not null,
+chhaya(# name text not null,
+chhaya(# age int not null,
+chhaya(# address char(50),
+chhaya(# salary real
+chhaya(# );
+CREATE TABLE
+chhaya=# create table department (
+chhaya(# id int primary key not null,
+chhaya(# dept char(50),
+chhaya(# emp_id int not null
+chhaya(# );
+CREATE TABLE
+chhaya=# \d
+                  List of relations
+ Schema |          Name           |   Type   | Owner  
+--------+-------------------------+----------+--------
+ public | cities                  | table    | chhaya
+ public | company                 | table    | chhaya
+ public | department              | table    | chhaya
+ public | playground              | table    | chhaya
+ public | playground_equip_id_seq | sequence | chhaya
+ public | weather                 | table    | chhaya
+(6 rows)
+
+chhaya=# \d company
+       Table "public.company"
+ Column  |     Type      | Modifiers 
+---------+---------------+-----------
+ id      | integer       | not null
+ name    | text          | not null
+ age     | integer       | not null
+ address | character(50) | 
+ salary  | real          | 
+Indexes:
+    "company_pkey" PRIMARY KEY, btree (id)
+
+chhaya=# drop table cities;
+DROP TABLE
+chhaya=# \d
+                  List of relations
+ Schema |          Name           |   Type   | Owner  
+--------+-------------------------+----------+--------
+ public | company                 | table    | chhaya
+ public | department              | table    | chhaya
+ public | playground              | table    | chhaya
+ public | playground_equip_id_seq | sequence | chhaya
+ public | weather                 | table    | chhaya
+(5 rows)
+
+chhaya=# drop table playground,weather;
+DROP TABLE
+chhaya=# \d
+          List of relations
+ Schema |    Name    | Type  | Owner  
+--------+------------+-------+--------
+ public | company    | table | chhaya
+ public | department | table | chhaya
+(2 rows)
+
+chhaya=# \q
+chhaya@beryl-To-be-filled-by-O-E-M:~$ createdb testdb;
+chhaya@beryl-To-be-filled-by-O-E-M:~$ \c testdb
+c: command not found
+chhaya@beryl-To-be-filled-by-O-E-M:~$ psql
+psql (9.5.7)
+Type "help" for help.
+
+chhaya=# \c testdb
+You are now connected to database "testdb" as user "chhaya".
+testdb=# create schema myschema;
+CREATE SCHEMA
+testdb=# create table myschema.company(
+testdb(# id int primary key not null,
+testdb(# name varchar(50) not null,
+testdb(# age int not null,
+testdb(# adress char(50),
+testdb(# salary decimal (18,2)
+testdb(# primary key (id)
+testdb(# );
+ERROR:  syntax error at or near "("
+LINE 7: primary key (id)
+                    ^
+testdb=# create table myschema.company(
+id int primary key not null,
+name varchar(50) not null,
+age int not null,
+adress char(50),
+salary decimal (18,2)
+primary key(id)
+);
+ERROR:  syntax error at or near "("
+LINE 7: primary key(id)
+                   ^
+testdb=# create table myschema.company(
+id int primary key not null,
+name varchar(50) not null,
+age int not null,
+adress char(50),
+salary decimal (18,2),
+primary key (id)
+);
+ERROR:  multiple primary keys for table "company" are not allowed
+LINE 7: primary key (id)
+        ^
+testdb=# create table myschema.company(
+id int primary key not null,
+name varchar(50) not null,
+age int not null,
+adress char(50),
+salary decimal (18,2) 
+);              
+CREATE TABLE
+testdb=# selct * from myschema.company;
+ERROR:  syntax error at or near "selct"
+LINE 1: selct * from myschema.company;
+        ^
+testdb=# select * from myschema.company;
+ id | name | age | adress | salary 
+----+------+-----+--------+--------
+(0 rows)
+
+testdb=# drop schema myschema cascade;
+NOTICE:  drop cascades to table myschema.company
+DROP SCHEMA
+testdb=# \q
+chhaya@beryl-To-be-filled-by-O-E-M:~$ \c chhaya
+c: command not found
+chhaya@beryl-To-be-filled-by-O-E-M:~$ psql
+psql (9.5.7)
+Type "help" for help.
+
+chhaya=# \c chhaya
+You are now connected to database "chhaya" as user "chhaya".
+chhaya=# \d
+          List of relations
+ Schema |    Name    | Type  | Owner  
+--------+------------+-------+--------
+ public | company    | table | chhaya
+ public | department | table | chhaya
+(2 rows)
+
+chhaya=# \d company) 
+ERROR:  invalid regular expression: parentheses () not balanced
+chhaya=# \d company
+       Table "public.company"
+ Column  |     Type      | Modifiers 
+---------+---------------+-----------
+ id      | integer       | not null
+ name    | text          | not null
+ age     | integer       | not null
+ address | character(50) | 
+ salary  | real          | 
+Indexes:
+    "company_pkey" PRIMARY KEY, btree (id)
+
+chhaya=# insert into company values ('1','chhaya','21','faridabad','50000');
+INSERT 0 1
+chhaya=# insert into company values ('2','Shobhit','25','faridabad','40000');
+INSERT 0 1
+chhaya=# insert into company values ('2','Shobhit','25','faridabad','40000')^Cchhaya=# insert into company values ('3','Suman','25','faridabad','40000'),('4','Riya','18','Delhi');
+ERROR:  VALUES lists must all be the same length
+LINE 1: ...ny values ('3','Suman','25','faridabad','40000'),('4','Riya'...
+                                                             ^
+chhaya=# insert into company values ('3','Suman','25','faridabad','40000'),('4','Riya','18','Delhi','30000');
+INSERT 0 2
+chhaya=# \d company
+       Table "public.company"
+ Column  |     Type      | Modifiers 
+---------+---------------+-----------
+ id      | integer       | not null
+ name    | text          | not null
+ age     | integer       | not null
+ address | character(50) | 
+ salary  | real          | 
+Indexes:
+    "company_pkey" PRIMARY KEY, btree (id)
+
+chhaya=# select * from table company;
+ERROR:  syntax error at or near "table"
+LINE 1: select * from table company;
+                      ^
+chhaya=# select * from  company;
+chhaya=# selct name ,age from company
+chhaya-# ;
+ERROR:  syntax error at or near "selct"
+LINE 1: selct name ,age from company
+        ^
+chhaya=# select name ,age from company
+;
+  name   | age 
+---------+-----
+ chhaya  |  21
+ Shobhit |  25
+ Suman   |  25
+ Riya    |  18
+(4 rows)
+
+chhaya=# selct * from company where salary='50000';
+ERROR:  syntax error at or near "selct"
+LINE 1: selct * from company where salary='50000';
+        ^
+chhaya=# select * from company where salary='50000';
+chhaya=# select (5*6) as multiplication;
+ multiplication 
+----------------
+             30
+(1 row)
+
+chhaya=# selcet count(*) as records from company;
+ERROR:  syntax error at or near "selcet"
+LINE 1: selcet count(*) as records from company;
+        ^
+chhaya=# select count(*) as records from company;
+ records 
+---------
+       4
+(1 row)
+
+chhaya=# select current_timestamp;
+               now                
+----------------------------------
+ 2017-06-24 11:13:38.386415+05:30
+(1 row)
+
+chhaya=# select * from company where age>=25 &salary >30000;
+ERROR:  syntax error at or near ">"
+LINE 1: select * from company where age>=25 &salary >30000;
+                                                    ^
+chhaya=# select * from company where age>=25 &salary >= 30000;
+ERROR:  syntax error at or near ">="
+LINE 1: select * from company where age>=25 &salary >= 30000;
+                                                    ^
+chhaya=# select * from company where age>=25 & salary >= 30000;
+ERROR:  syntax error at or near ">="
+LINE 1: select * from company where age>=25 & salary >= 30000;
+                                                     ^
+chhaya=# select * from company where age >= 25 & salary >= 30000;
+ERROR:  syntax error at or near ">="
+LINE 1: select * from company where age >= 25 & salary >= 30000;
+                                                       ^
+chhaya=# select * from company where age >= 25 & salary > 30000;
+ERROR:  syntax error at or near ">"
+LINE 1: select * from company where age >= 25 & salary > 30000;
+                                                       ^
+chhaya=# SELECT * FROM COMPANY WHERE AGE >= 25 AND SALARY >= 65000;
+ id | name | age | address | salary 
+----+------+-----+---------+--------
+(0 rows)
+
+chhaya=# SELECT * FROM COMPANY WHERE AGE >= 25 AND SALARY >= 30000;
+chhaya=# select * from company where age >= 25 & salary > 30000;
+ERROR:  syntax error at or near ">"
+LINE 1: select * from company where age >= 25 & salary > 30000;
+                                                       ^
+chhaya=# 
+chhaya=# select * from company where age >= 25 & salary >= 30000;
+ERROR:  syntax error at or near ">="
+LINE 1: select * from company where age >= 25 & salary >= 30000;
+                                                       ^
+chhaya=# select * from company where age >= 25 & salary >= 30000;
+ERROR:  syntax error at or near ">="
+LINE 1: select * from company where age >= 25 & salary >= 30000;
+                                                       ^
+chhaya=# select * from company where age >= 25 and salary >= 30000;
+chhaya=# selct * from company where age is not null;
+ERROR:  syntax error at or near "selct"
+LINE 1: selct * from company where age is not null;
+        ^
+chhaya=# select * from company where age is not null;
+chhaya=# select * from company where name like 'ch%';
+chhaya=# select * from compnay where age in(20,26);
+ERROR:  relation "compnay" does not exist
+LINE 1: select * from compnay where age in(20,26);
+                      ^
+chhaya=# select * from company where age in(20,26);
+ id | name | age | address | salary 
+----+------+-----+---------+--------
+(0 rows)
+
+chhaya=# select * from company where age in(20,25);
+chhaya=# select * from company where age not in(20,25);
+chhaya=# select * from company where age between 20 and 25;
+chhaya=# select * from company where age between 20 or 25;
+ERROR:  syntax error at or near "or"
+LINE 1: select * from company where age between 20 or 25;
+                                                   ^
+chhaya=# select age from company where exists (select age from company where salary >20000);
+ age 
+-----
+  21
+  25
+  25
+  18
+(4 rows)
+
+chhaya=# select age from company where salary >20000; age 
+-----
+  21
+  25
+  25
+  18
+(4 rows)
+
+chhaya=# select * from company where age > (select age from company where salary >20000);
+ERROR:  more than one row returned by a subquery used as an expression
+chhaya=# select * from company where age > (select age from company where salary >40000);
+chhaya=# select * from company;
+chhaya=# select * from company where age < (select age from company where salary >40000);
+ id | name | age |                      address                       | salary 
+----+------+-----+----------------------------------------------------+--------
+  4 | Riya |  18 | Delhi                                              |  30000
+(1 row)
+
+chhaya=# select * from company where age >= 25 or salary >= 30000;
+chhaya=# 
+chhaya=# update company set salary = '60000' where name = 'chhaya';
+UPDATE 1
+chhaya=# select * from company;
+chhaya=# update company set address = 'rohihni' where name = 'chhaya';
+UPDATE 1
+chhaya=# delete from company where id ='4';
+DELETE 1
+chhaya=# select * from company;
+chhaya=# select name from company where like 'c%';
+ERROR:  type "like" does not exist
+LINE 1: select name from company where like 'c%';
+                                       ^
+chhaya=# select * from company where name like 'c%';
+chhaya=# select * from company where name like '%hi%';
+chhaya=# select * from company where name like '_iy_';
+ id | name | age | address | salary 
+----+------+-----+---------+--------
+(0 rows)
+
+chhaya=# select * from company where name like '_iya';
+ id | name | age | address | salary 
+----+------+-----+---------+--------
+(0 rows)
+
+chhaya=# select * from company where name like '_hhay_';
+chhaya=# select * from company where age like '2%';
+ERROR:  operator does not exist: integer ~~ unknown
+LINE 1: select * from company where age like '2%';
+                                        ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+chhaya=# select * from company where age::text like '2%';
+chhaya=# insert into company values ('4','preety','25','allahbad','40000'),('4','Riya','18','Delhi');
+ERROR:  VALUES lists must all be the same length
+LINE 1: ...ny values ('4','preety','25','allahbad','40000'),('4','Riya'...
+                                                             ^
+chhaya=# insert into company values ('4','preety','25','allahbad','40000'),('4','Riya','18','Delhi','30000');
+ERROR:  duplicate key value violates unique constraint "company_pkey"
+DETAIL:  Key (id)=(4) already exists.
+chhaya=# insert into company values ('5','preety','25','allahbad','40000'),('4','Riya','18','Delhi','30000');
+INSERT 0 2
+chhaya=# insert into company values ('6','supriya','25','allahbad','40000'),('7','Rohit','2','pune','30000');
+INSERT 0 2
+chhaya=# select * from company;
+chhaya=# select * from company limit 4;
+chhaya=# select * from company limit 4 offset 2;
+chhaya=# select * from company limit 4 offset 2;
+chhaya=# select * from company limit 4;
+chhaya=# select * from company order by name asc limit 4;
+chhaya=# select * from company order by name asc;
+chhaya=# select * from company order by name,salary asc;
+chhaya=# insert into company values ('8','prem','25','allahbad','30000'),('9','Ratan','18','Delhi','30000');
+INSERT 0 2
+chhaya=# select * from company order by name,salary asc;chhaya=# insert into company values ('10','prerty','25','allahbad','20000');
+INSERT 0 1
+chhaya=# select * from company order by name,salary asc;
+chhaya=# 
+chhaya=# insert into company values ('11','preety','25','allahbad','20000');
+INSERT 0 1
+chhaya=# select * from company order by name,salary asc;
+chhaya=# select * from company order by name desc;
+chhaya=# 
+chhaya=# select name ,sum(salary) from company group by address;
+ERROR:  column "company.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select name ,sum(salary) from company group by address;
+               ^
+chhaya=# select name, sum(salary) from company group by address;
+ERROR:  column "company.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select name, sum(salary) from company group by address;
+               ^
+chhaya=# SELECT NAME, SUM(SALARY) FROM COMPANY GROUP BY NAME;
+  name   |  sum  
+---------+-------
+ supriya | 40000
+ Rohit   | 30000
+ Ratan   | 30000
+ Shobhit | 40000
+ Riya    | 30000
+ prem    | 30000
+ preety  | 60000
+ Suman   | 40000
+ chhaya  | 60000
+ prerty  | 20000
+(10 rows)
+
+chhaya=# SELECT NAME, SUM(SALARY) FROM COMPANY GROUP BY adress;
+ERROR:  column "adress" does not exist
+LINE 1: SELECT NAME, SUM(SALARY) FROM COMPANY GROUP BY adress;
+                                                       ^
+HINT:  Perhaps you meant to reference the column "company.address".
+chhaya=# SELECT NAME, SUM(SALARY) FROM COMPANY GROUP BY address;
+ERROR:  column "company.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: SELECT NAME, SUM(SALARY) FROM COMPANY GROUP BY address;
+               ^
+chhaya=# SELECT NAME,address , SUM(SALARY) FROM COMPANY GROUP BY address;
+ERROR:  column "company.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: SELECT NAME,address , SUM(SALARY) FROM COMPANY GROUP BY addr...
+               ^
+chhaya=# select address, sum(salary) from company group by address;
+                      address                       |  sum   
+----------------------------------------------------+--------
+ faridabad                                          |  80000
+ rohihni                                            |  60000
+ allahbad                                           | 150000
+ pune                                               |  30000
+ Delhi                                              |  60000
+(5 rows)
+
+chhaya=# select name,address, sum(salary) from company group by address order byname asc;
+ERROR:  syntax error at or near "byname"
+LINE 1: ..., sum(salary) from company group by address order byname asc...
+                                                             ^
+chhaya=# select name,address, sum(salary) from company group by address order by name asc;
+ERROR:  column "company.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select name,address, sum(salary) from company group by addre...
+               ^
+chhaya=# select address,name, sum(salary) from company group by address order by name asc;
+ERROR:  column "company.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select address,name, sum(salary) from company group by addre...
+                       ^
+chhaya=# select * from company;
+chhaya=# select address, sum(salary) from company group by address order by salary asc;
+ERROR:  column "company.salary" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: ...um(salary) from company group by address order by salary asc...
+                                                             ^
+chhaya=# select address, sum(salary) from company group by address order by sum(salary) asc;
+                      address                       |  sum   
+----------------------------------------------------+--------
+ pune                                               |  30000
+ rohihni                                            |  60000
+ Delhi                                              |  60000
+ faridabad                                          |  80000
+ allahbad                                           | 150000
+(5 rows)
+
+chhaya=# select name,address, sum(salary) from company group by address order by name,sum(salary) asc;
+ERROR:  column "company.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select name,address, sum(salary) from company group by addre...
+               ^
+chhaya=# select name,address, sum(salary) from company group by name order by name,sum(salary) asc;
+ERROR:  column "company.address" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select name,address, sum(salary) from company group by name ...
+                    ^
+chhaya=# select comapny.name,address, sum(salary) from company group by name order by name,sum(salary) asc;
+ERROR:  missing FROM-clause entry for table "comapny"
+LINE 1: select comapny.name,address, sum(salary) from company group ...
+               ^
+chhaya=# SELECT NAME, SUM(SALARY)
+chhaya-#          FROM COMPANY GROUP BY NAME ORDER BY NAME DESC;
+  name   |  sum  
+---------+-------
+ supriya | 40000
+ Suman   | 40000
+ Shobhit | 40000
+ Rohit   | 30000
+ Riya    | 30000
+ Ratan   | 30000
+ prerty  | 20000
+ prem    | 30000
+ preety  | 60000
+ chhaya  | 60000
+(10 rows)
+
+chhaya=# with cte as(
+chhaya(# selectid,name,age,address,salary from company)
+chhaya-# select * from cte;
+ERROR:  syntax error at or near "selectid"
+LINE 2: selectid,name,age,address,salary from company)
+        ^
+chhaya=# with cte as(
+select id,name,age,address,salary from company)
+select * from cte;
+chhaya=# with recursive(n) as (
+chhaya(# values(0)
+chhaya(# union all
+chhaya(# selact salary from compnay where salary < 50000
+chhaya(# )
+chhaya-# select sum(n) from t;
+ERROR:  syntax error at or near "selact"
+LINE 4: selact salary from compnay where salary < 50000
+        ^
+chhaya=# with recursive(n) as (
+values(0)
+union all
+select salary from compnay where salary < 50000
+)
+select sum(n) from t;
+ERROR:  relation "compnay" does not exist
+LINE 4: select salary from compnay where salary < 50000
+                           ^
+chhaya=# with recursive(n) as (
+values(0)
+union all
+select salary from company where salary < 50000
+)
+select sum(n) from t;
+ERROR:  relation "t" does not exist
+LINE 6: select sum(n) from t;
+                           ^
+chhaya=# with recursive t(n) as (
+values(0)
+union all
+select salary from company where salary < 50000
+)
+select sum(n) from t;
+  sum   
+--------
+ 320000
+(1 row)
+
+chhaya=# CREATE TABLE COMPANY1(
+chhaya(#    ID INT PRIMARY KEY     NOT NULL,
+chhaya(#    NAME           TEXT    NOT NULL,
+chhaya(#    AGE            INT     NOT NULL,
+chhaya(#    ADDRESS        CHAR(50),
+chhaya(#    SALARY         REAL
+chhaya(# );
+CREATE TABLE
+chhaya=# with moved_rows as(
+chhaya(# delete from company where salary < 4000
+chhaya(# returning *
+chhaya(# )
+chhaya-# insert into company1 (select * from moved_rows);
+INSERT 0 0
+chhaya=# with moved_rows as(
+delete from company where salary <= 4000
+returning *
+)
+insert into company1 (select * from moved_rows);
+INSERT 0 0
+chhaya=# with moved_rows as(
+delete from company where salary >= 4000
+returning *
+)
+insert into company1 (select * from moved_rows);
+INSERT 0 11
+chhaya=# select * from company1;
+chhaya=# select * from company;
+ id | name | age | address | salary 
+----+------+-----+---------+--------
+(0 rows)
+
+chhaya=# with moved_rows as(
+delete from company1 where salary >= 4000
+returning *
+)
+insert into company (select * from moved_rows);
+INSERT 0 11
+chhaya=# with moved_rows as(
+delete from company where salary >= 40000
+returning *
+)
+insert into company1 (select * from moved_rows);
+INSERT 0 5
+chhaya=# select name from company group by name having count(name) < 2; 
+  name  
+--------
+ Rohit
+ Ratan
+ Riya
+ prem
+ preety
+ prerty
+(6 rows)
+
+chhaya=# select name from company group by name having count(name) > 2; 
+ name 
+------
+(0 rows)
+
+chhaya=# select name from company group by name having count(name) > 5; 
+ name 
+------
+(0 rows)
+
+chhaya=# select name from company group by name having count(name) > 3; 
+ name 
+chhaya=# select name from company group by name having count(name) < 5; 
+  name  
+--------
+ Rohit
+ Ratan
+ Riya
+ premchhaya=# select name from company group by name having count(name) < 5; 
+  name  
+--------
+ Rohit
+ Ratan
+ Riya
+ prem
+ preety
+ prerty
+(6 rows)
+
+chhaya=# select name from company group by name having count(name) < 4; 
+  name  
+--------
+ Rohit
+ Ratan
+ Riya
+ prem
+ preety
+ prerty
+(6 rows)
+
+chhaya=# select name from company group by name having count(name) < 2; 
+  name  
+--------
+ Rohit
+ Ratan
+ Riya
+ prem
+ preety
+ prerty
+(6 rows)
+
+chhaya=# select name from company group by name having count(name) < 2; 
+  name  
+--------
+ Rohit
+ Ratan
+ Riya
+ prem
+ preety
+ prerty
+(6 rows)
+
+chhaya=# 
+chhaya=# select name from company group by name having count(name) < 2; 
+  name  
+--------
+ Rohit
+ Ratan
+ Riya
+ prem
+ preety
+ prerty
+(6 rows)
+
+chhaya=# select * from company
+chhaya-# ;
+chhaya=# select name from company group by name having count(name) < 1; 
+ name 
+------
+(0 rows)
+
+chhaya=# select name from company group by name having count(name) = 2; 
+ name 
+------
+(0 rows)
+
+chhaya=# select name from company group by name having count(name) <= 2; 
+  name  
+--------
+ Rohit
+ Ratan
+ Riya
+ prem
+ preety
+ prerty
+(6 rows)
+
+chhaya=# select name from company group by name having count(name) >  1; 
+ name 
+------
+(0 rows)
+
+chhaya=# insert into company values ('12','preety','24','jasana','45000');
+INSERT 0 1
+chhaya=# select name from company group by name having count(name) >  1; 
+  name  
+--------
+ preety
+(1 row)
+
+chhaya=# select distinct name from company;
+  name  
+--------
+ Rohit
+ Ratan
+ Riya
+ prem
+ preety
+ prerty
+(6 rows)
+
+chhaya=# \d department
+     Table "public.department"
+ Column |     Type      | Modifiers 
+--------+---------------+-----------
+ id     | integer       | not null
+ dept   | character(50) | 
+ emp_id | integer       | not null
+Indexes:
+    "department_pkey" PRIMARY KEY, btree (id)
+
+chhaya=# insert into department('1','hr','1'),('2','engineering','5'),('3','finance','6');
+ERROR:  syntax error at or near "'1'"
+LINE 1: insert into department('1','hr','1'),('2','engineering','5')...
+                               ^
+chhaya=# insert into department values ('1','hr','1'),('2','engineering','5'),('3','finance','6');
+INSERT 0 3
+chhaya=# \d department
+     Table "public.department"
+ Column |     Type      | Modifiers 
+--------+---------------+-----------
+ id     | integer       | not null
+ dept   | character(50) | 
+ emp_id | integer       | not null
+Indexes:
+    "department_pkey" PRIMARY KEY, btree (id)
+
+chhaya=# select * from department;
+ id |                        dept                        | emp_id 
+----+----------------------------------------------------+--------
+  1 | hr                                                 |      1
+  2 | engineering                                        |      5
+  3 | finance                                            |      6
+(3 rows)
+
+chhaya=# select emp_id ,name ,dept from company cross join department;
+ emp_id |  name  |                        dept                        
+--------+--------+----------------------------------------------------
+      1 | Riya   | hr                                                
+      1 | Rohit  | hr                                                
+      1 | prem   | hr                                                
+      1 | Ratan  | hr                                                
+      1 | prerty | hr                                                
+      1 | preety | hr                                                
+      1 | preety | hr                                                
+      5 | Riya   | engineering                                       
+      5 | Rohit  | engineering                                       
+      5 | prem   | engineering                                       
+      5 | Ratan  | engineering                                       
+      5 | prerty | engineering                                       
+      5 | preety | engineering                                       
+      5 | preety | engineering                                       
+      6 | Riya   | finance                                           
+      6 | Rohit  | finance                                           
+      6 | prem   | finance                                           
+      6 | Ratan  | finance                                           
+      6 | prerty | finance                                           
+      6 | preety | finance                                           
+      6 | preety | finance                                           
+(21 rows)
+
+chhaya=# selct * from company cross join department;
+ERROR:  syntax error at or near "selct"
+LINE 1: selct * from company cross join department;
+        ^
+chhaya=# select * from company cross join department;
+chhaya=# 
+chhaya=# select company.name,department.dept from company inner join department on company.id=depatment.emp_id;
+ERROR:  missing FROM-clause entry for table "depatment"
+LINE 1: ... from company inner join department on company.id=depatment....
+                                                             ^
+chhaya=# select name,dept from company inner join department on company.id=department.emp_id;
+ name | dept 
+------+------
+(0 rows)
+
+chhaya=# select + from company;
+ERROR:  syntax error at or near "from"
+LINE 1: select + from company;
+                 ^
+chhaya=# select * from company;
+chhaya=# insert into company values ('1','pooja','24','nainital','60000');
+INSERT 0 1
+chhaya=# select name,dept from company inner join department on company.id=department.emp_id;
+ name  |                        dept                        
+-------+----------------------------------------------------
+ pooja | hr                                                
+(1 row)
+
+chhaya=# select * from company left outer join department on company.id=department.emp_id;
+chhaya=# select name,dept,age  from company left outer join department on company.id=department.emp_id;
+
+ preety
+ prerty
+(6 rows)
+
+chhaya=# select name from company group by name having count(name) < 4; 
+  name  
+--------
+ Rohit
+ Ratan
+ Riya
+ prem
+ preety
+ prerty
+(6 rows)
+
+chhaya=# select name from company group by name having count(name) < 2; 
+  name  
+--------
+ Rohit
+ Ratan
+ Riya
+ prem
+ preety
+ prerty
+(6 rows)
+
+chhaya=# select name from company group by name having count(name) < 2; 
+  name  
+--------
+ Rohit
+ Ratan
+ Riya
+ prem
+ preety
+ prerty
+(6 rows)
+
+chhaya=# 
+chhaya=# select name from company group by name having count(name) < 2; 
+  name  
+--------
+ Rohit
+ Ratan
+ Riya
+ prem
+ preety
+ prerty
+(6 rows)
+
+chhaya=# select * from company
+chhaya-# ;
+chhaya=# select name from company group by name having count(name) < 1; 
+ name 
+------
+(0 rows)
+
+chhaya=# select name from company group by name having count(name) = 2; 
+ name 
+------
+(0 rows)
+
+chhaya=# select name from company group by name having count(name) <= 2; 
+  name  
+--------
+ Rohit
+ Ratan
+ Riya
+ prem
+ preety
+ prerty
+(6 rows)
+
+chhaya=# select name from company group by name having count(name) >  1; 
+ name 
+------
+(0 rows)
+
+chhaya=# insert into company values ('12','preety','24','jasana','45000');
+INSERT 0 1
+chhaya=# select name from company group by name having count(name) >  1; 
+  name  
+--------
+ preety
+(1 row)
+
+chhaya=# select distinct name from company;
+  name  
+--------
+ Rohit
+ Ratan
+ Riya
+ prem
+ preety
+ prerty
+(6 rows)
+
+chhaya=# \d department
+     Table "public.department"
+ Column |     Type      | Modifiers 
+--------+---------------+-----------
+ id     | integer       | not null
+ dept   | character(50) | 
+ emp_id | integer       | not null
+Indexes:
+    "department_pkey" PRIMARY KEY, btree (id)
+
+chhaya=# insert into department('1','hr','1'),('2','engineering','5'),('3','finance','6');
+ERROR:  syntax error at or near "'1'"
+LINE 1: insert into department('1','hr','1'),('2','engineering','5')...
+                               ^
+chhaya=# insert into department values ('1','hr','1'),('2','engineering','5'),('3','finance','6');
+INSERT 0 3
+chhaya=# \d department
+     Table "public.department"
+ Column |     Type      | Modifiers 
+--------+---------------+-----------
+ id     | integer       | not null
+ dept   | character(50) | 
+ emp_id | integer       | not null
+Indexes:
+    "department_pkey" PRIMARY KEY, btree (id)
+
+chhaya=# select * from department;
+ id |                        dept                        | emp_id 
+----+----------------------------------------------------+--------
+  1 | hr                                                 |      1
+  2 | engineering                                        |      5
+  3 | finance                                            |      6
+(3 rows)
+
+chhaya=# select emp_id ,name ,dept from company cross join department;
+ emp_id |  name  |                        dept                        
+--------+--------+----------------------------------------------------
+      1 | Riya   | hr                                                
+      1 | Rohit  | hr                                                
+      1 | prem   | hr                                                
+      1 | Ratan  | hr                                                
+      1 | prerty | hr                                                
+      1 | preety | hr                                                
+      1 | preety | hr                                                
+      5 | Riya   | engineering                                       
+      5 | Rohit  | engineering                                       
+      5 | prem   | engineering                                       
+      5 | Ratan  | engineering                                       
+      5 | prerty | engineering                                       
+      5 | preety | engineering                                       
+      5 | preety | engineering                                       
+      6 | Riya   | finance                                           
+      6 | Rohit  | finance                                           
+      6 | prem   | finance                                           
+      6 | Ratan  | finance                                           
+      6 | prerty | finance                                           
+      6 | preety | finance                                           
+      6 | preety | finance                                           
+(21 rows)
+
+chhaya=# selct * from company cross join department;
+ERROR:  syntax error at or near "selct"
+LINE 1: selct * from company cross join department;
+        ^
+chhaya=# select * from company cross join department;
+chhaya=# 
+chhaya=# select company.name,department.dept from company inner join department on company.id=depatment.emp_id;
+ERROR:  missing FROM-clause entry for table "depatment"
+LINE 1: ... from company inner join department on company.id=depatment....
+                                                             ^
+chhaya=# select name,dept from company inner join department on company.id=department.emp_id;
+ name | dept 
+------+------
+(0 rows)
+
+chhaya=# select + from company;
+ERROR:  syntax error at or near "from"
+LINE 1: select + from company;
+                 ^
+chhaya=# select * from company;
+chhaya=# insert into company values ('1','pooja','24','nainital','60000');
+INSERT 0 1
+chhaya=# select name,dept from company inner join department on company.id=department.emp_id;
+ name  |                        dept                        
+-------+----------------------------------------------------
+ pooja | hr                                                
+(1 row)
+
+chhaya=# select * from company left outer join department on company.id=department.emp_id;
+chhaya=# select name,dept,age  from company left outer join department on company.id=department.emp_id;
+name  |                        dept                        | age 
+--------+----------------------------------------------------+-----
+ pooja  | hr                                                 |  24
+ preety |                                                    |  25
+ preety |                                                    |  24
+ prerty |                                                    |  25
+ prem   |                                                    |  25
+ Riya   |                                                    |  18
+ Ratan  |                                                    |  18
+ Rohit  |                                                    |   2
+(8 rows)
+
+chhaya=# select name,dept,age  from company right outer join department on company.id=department.emp_id;
+ name  |                        dept                        | age 
+-------+----------------------------------------------------+-----
+ pooja | hr                                                 |  24
+       | engineering                                        |    
+       | finance                                            |    
+(3 rows)
+
+chhaya=# select *  from company right outer join department on company.id=department.emp_id;
+chhaya=# select *  from company full outer join department on company.id=department.emp_id;
+chhaya=# select id,name,dept,age  from company full outer join department on company.id=department.emp_id;
+ERROR:  column reference "id" is ambiguous
+LINE 1: select id,name,dept,age  from company full outer join depart...
+               ^
+chhaya=# select emp_id,name,dept,age  from company full outer join department on company.id=department.emp_id;
+ emp_id |  name  |                        dept                        | age 
+--------+--------+----------------------------------------------------+-----
+      1 | pooja  | hr                                                 |  24
+      5 |        | engineering                                        |    
+      6 |        | finance                                            |    
+        | preety |                                                    |  25
+        | preety |                                                    |  24
+        | prerty |                                                    |  25
+        | prem   |                                                    |  25
+        | Riya   |                                                    |  18
+        | Ratan  |                                                    |  18
+        | Rohit  |                                                    |   2
+(10 rows)
+
+chhaya=# \q
+
