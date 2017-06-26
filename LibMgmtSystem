@@ -1,0 +1,1547 @@
+beryl@beryl-To-be-filled-by-O-E-M:~$ sudo -i -u chhaya
+[sudo] password for beryl: 
+chhaya@beryl-To-be-filled-by-O-E-M:~$ psql LibraryManagementSystem
+psql (9.5.7)
+Type "help" for help.
+
+LibraryManagementSystem=# select * from book_info;
+ id |       name        | author_name  | dept_id 
+----+-------------------+--------------+---------
+  1 | TOC               | Bhati        |       1
+  2 | Thermo            | Ganesh       |       2
+  3 | building material | Bhramcharya  |       3
+  4 | CD                | Ganju        |       1
+  5 | CAD               | Rohit        |       2
+(5 rows)
+
+LibraryManagementSystem=# select * from library_record;
+ id | book_id | issued_date | submission_date | student_id | librarian_id 
+----+---------+-------------+-----------------+------------+--------------
+  1 |       5 | 2017-01-12  | 2017-01-22      |          2 |            3
+  2 |       4 | 2017-06-15  | 2017-06-25      |          5 |            1
+  3 |       2 | 2017-05-08  | 2017-05-18      |          2 |            2
+  4 |       3 | 2017-06-11  | 2017-06-21      |          3 |            1
+  5 |       1 | 2017-06-08  | 2017-06-18      |          1 |            1
+  6 |       1 | 2017-01-12  | 2017-01-22      |          3 |            1
+  7 |       3 | 2017-06-02  | 2017-05-22      |          4 |            2
+  8 |       1 | 2017-05-08  | 2017-05-18      |          1 |            3
+  9 |       3 | 2017-04-11  | 2017-04-21      |          1 |            1
+ 10 |       3 | 2017-06-01  | 2017-06-11      |          4 |            2
+(10 rows)
+
+LibraryManagementSystem=# selct * from librarian_info;
+ERROR:  syntax error at or near "selct"
+LINE 1: selct * from librarian_info;
+        ^
+LibraryManagementSystem=# select * from librarian_info;
+ id |  name   
+----+---------
+  1 | Garima
+  2 | Apoorva
+  3 | Sheenu
+(3 rows)
+
+LibraryManagementSystem=# select * from department_info;
+ id | name 
+----+------
+  1 | CSE
+  2 | ME
+  3 | CE
+(3 rows)
+
+LibraryManagementSystem=# select current_date;
+    date    
+------------
+ 2017-06-26
+(1 row)
+
+LibraryManagementSystem=# \d
+             List of relations
+ Schema |      Name       | Type  | Owner  
+--------+-----------------+-------+--------
+ public | book_info       | table | chhaya
+ public | department_info | table | chhaya
+ public | librarian_info  | table | chhaya
+ public | library_record  | table | chhaya
+ public | student_info    | table | chhaya
+(5 rows)
+
+LibraryManagementSystem=# \d student_info
+          Table "public.student_info"
+   Column   |         Type          | Modifiers 
+------------+-----------------------+-----------
+ id         | integer               | not null
+ name       | character varying(80) | not null
+ birth_date | date                  | not null
+ dept_id    | integer               | 
+Indexes:
+    "student_info_pkey" PRIMARY KEY, btree (id)
+Check constraints:
+    "birth_date" CHECK (birth_date < ('now'::text::date - '10 years'::interval))
+Foreign-key constraints:
+    "student_info_dept_id_fkey" FOREIGN KEY (dept_id) REFERENCES department_info(id)
+Referenced by:
+    TABLE "library_record" CONSTRAINT "library_record_student_id_fkey" FOREIGN KEY (student_id) REFERENCES student_info(id)
+
+LibraryManagementSystem=# select current_date-dob as time from student_info;
+ERROR:  column "dob" does not exist
+LINE 1: select current_date-dob as time from student_info;
+                            ^
+LibraryManagementSystem=# select current_date-birth_date as time from student_info;
+ time 
+------
+ 7979
+ 7609
+ 7796
+ 8232
+ 7987
+(5 rows)
+
+LibraryManagementSystem=# alter table student_info add column gender varchar(50);
+ALTER TABLE
+LibraryManagementSystem=# update student_info set gender='female ' where name='chhaya';
+UPDATE 1
+LibraryManagementSystem=# select * from student_info;
+ id |  name  | birth_date | dept_id | gender  
+----+--------+------------+---------+---------
+  2 | hema   | 1996-08-26 |       2 | 
+  3 | diksha | 1996-02-21 |       1 | 
+  4 | Sagar  | 1994-12-12 |       3 | 
+  5 | rinku  | 1995-08-14 |       2 | 
+  1 | chhaya | 1995-08-22 |       1 | female 
+(5 rows)
+
+LibraryManagementSystem=# update student_info set gender='female ' where name=diksha';
+LibraryManagementSystem'# update student_info set gender='female ' where name='diksha';
+LibraryManagementSystem'# update student_info set gender='female ' where name='hema';
+LibraryManagementSystem'# update student_info set gender='male ' where name='sagar';
+LibraryManagementSystem'# update student_info set gender='male ' where name='rinku';
+LibraryManagementSystem'# select * from student_info;
+LibraryManagementSystem'# \q
+LibraryManagementSystem'# \q
+LibraryManagementSystem'# exit
+LibraryManagementSystem'# ^C
+LibraryManagementSystem=# \q
+chhaya@beryl-To-be-filled-by-O-E-M:~$ psql LibraryManagementSystem
+psql (9.5.7)
+Type "help" for help.
+
+LibraryManagementSystem=# update student_info set gender='female ' where name='diksha';
+UPDATE 1
+LibraryManagementSystem=# update student_info set gender='female ' where name='hema';
+UPDATE 1
+LibraryManagementSystem=# update student_info set gender='male ' where name='sagar';
+UPDATE 0
+LibraryManagementSystem=# update student_info set gender='male ' where name='rinku';
+UPDATE 1
+LibraryManagementSystem=# update student_info set gender='male ' where name='sagar';
+UPDATE 0
+LibraryManagementSystem=# select * from student_info
+LibraryManagementSystem-# ;
+ id |  name  | birth_date | dept_id | gender  
+----+--------+------------+---------+---------
+  4 | Sagar  | 1994-12-12 |       3 | 
+  1 | chhaya | 1995-08-22 |       1 | female 
+  3 | diksha | 1996-02-21 |       1 | female 
+  2 | hema   | 1996-08-26 |       2 | female 
+  5 | rinku  | 1995-08-14 |       2 | male 
+(5 rows)
+
+LibraryManagementSystem=# update student_info set gender='male ' where name='Sagar';
+UPDATE 1
+LibraryManagementSystem=# select * from student_info;
+ id |  name  | birth_date | dept_id | gender  
+----+--------+------------+---------+---------
+  1 | chhaya | 1995-08-22 |       1 | female 
+  3 | diksha | 1996-02-21 |       1 | female 
+  2 | hema   | 1996-08-26 |       2 | female 
+  5 | rinku  | 1995-08-14 |       2 | male 
+  4 | Sagar  | 1994-12-12 |       3 | male 
+(5 rows)
+
+LibraryManagementSystem=# select count(book_id) from library_record where extract(month from issued_date) between 11 and 9;
+ count 
+-------
+     0
+(1 row)
+
+LibraryManagementSystem=# select count(book_id) from library_record where extract(month from issued_date) between 1 and 30 ;
+ count 
+-------
+    10
+(1 row)
+
+LibraryManagementSystem=# select book_id from library_record where extract(month from issued_date) between 1 and 30 ;
+ book_id 
+---------
+       5
+       4
+       2
+       3
+       1
+       1
+       3
+       1
+       3
+       3
+(10 rows)
+
+LibraryManagementSystem=# select book_id from library_record where extract(month from issued_date) between 1 and 6 ;
+ book_id 
+---------
+       5
+       4
+       2
+       3
+       1
+       1
+       3
+       1
+       3
+       3
+(10 rows)
+
+LibraryManagementSystem=# select book_id from library_record where extract(month from issued_date) between  20and 30 ;
+ book_id 
+---------
+(0 rows)
+
+LibraryManagementSystem=# select book_id from library_record where extract(month from issued_date) between  20 and 30 ;
+ book_id 
+---------
+(0 rows)
+
+LibraryManagementSystem=# select book_id from library_record where extract(month from issued_date) between  11 and 30 ;
+ book_id 
+---------
+(0 rows)
+
+LibraryManagementSystem=# selct * from library_record;
+ERROR:  syntax error at or near "selct"
+LINE 1: selct * from library_record;
+        ^
+LibraryManagementSystem=# select * from library_record;
+ id | book_id | issued_date | submission_date | student_id | librarian_id 
+----+---------+-------------+-----------------+------------+--------------
+  1 |       5 | 2017-01-12  | 2017-01-22      |          2 |            3
+  2 |       4 | 2017-06-15  | 2017-06-25      |          5 |            1
+  3 |       2 | 2017-05-08  | 2017-05-18      |          2 |            2
+  4 |       3 | 2017-06-11  | 2017-06-21      |          3 |            1
+  5 |       1 | 2017-06-08  | 2017-06-18      |          1 |            1
+  6 |       1 | 2017-01-12  | 2017-01-22      |          3 |            1
+  7 |       3 | 2017-06-02  | 2017-05-22      |          4 |            2
+  8 |       1 | 2017-05-08  | 2017-05-18      |          1 |            3
+  9 |       3 | 2017-04-11  | 2017-04-21      |          1 |            1
+ 10 |       3 | 2017-06-01  | 2017-06-11      |          4 |            2
+(10 rows)
+
+LibraryManagementSystem=# select book_id from library_record where extract(month from issued_date) between  1 and 3 ;
+ book_id 
+---------
+       5
+       1
+(2 rows)
+
+LibraryManagementSystem=# select book_id from library_record where extract(month from issued_date);
+ERROR:  argument of WHERE must be type boolean, not type double precision
+LINE 1: select book_id from library_record where extract(month from ...
+                                                 ^
+LibraryManagementSystem=# select book_id from library_record where extract(month from issued_date)='06';
+ book_id 
+---------
+       4
+       3
+       1
+       3
+       3
+(5 rows)
+
+LibraryManagementSystem=# select book_id from library_record where extract(month from issued_date) in(6,4,1);
+ book_id 
+---------
+       5
+       4
+       3
+       1
+       1
+       3
+       3
+       3
+(8 rows)
+
+LibraryManagementSystem=# select count(book_id) from library_record where extract(month from issued_date) in(6,4,1);
+ count 
+-------
+     8
+(1 row)
+
+LibraryManagementSystem=# select s.name,s.gender,s.age,l.issued_date from student_info s inner join library_record l;
+ERROR:  syntax error at or near ";"
+LINE 1: ...issued_date from student_info s inner join library_record l;
+                                                                      ^
+LibraryManagementSystem=# select s.name,s.gender,s.age,l.issued_date from student_info s inner join library_record l on s.id=l.student_id;
+ERROR:  column s.age does not exist
+LINE 1: select s.name,s.gender,s.age,l.issued_date from student_info...
+                               ^
+LibraryManagementSystem=# select s.name,s.gender,l.issued_date from student_info s inner join library_record l on s.id=l.student_id;
+  name  | gender  | issued_date 
+--------+---------+-------------
+ hema   | female  | 2017-01-12
+ rinku  | male    | 2017-06-15
+ hema   | female  | 2017-05-08
+ diksha | female  | 2017-06-11
+ chhaya | female  | 2017-06-08
+ diksha | female  | 2017-01-12
+ Sagar  | male    | 2017-06-02
+ chhaya | female  | 2017-05-08
+ chhaya | female  | 2017-04-11
+ Sagar  | male    | 2017-06-01
+(10 rows)
+
+LibraryManagementSystem=# select b.name,b.author,s.name,s.gender,l.issued_date from student_info s inner join library_record l on s.id=l.student_id inner join book_info b on b.id=l.book_id;
+ERROR:  column b.author does not exist
+LINE 1: select b.name,b.author,s.name,s.gender,l.issued_date from st...
+                      ^
+LibraryManagementSystem=# select * from book_info
+LibraryManagementSystem-# ;
+ id |       name        | author_name  | dept_id 
+----+-------------------+--------------+---------
+  1 | TOC               | Bhati        |       1
+  2 | Thermo            | Ganesh       |       2
+  3 | building material | Bhramcharya  |       3
+  4 | CD                | Ganju        |       1
+  5 | CAD               | Rohit        |       2
+(5 rows)
+
+LibraryManagementSystem=# select b.name,b.autho_namer,s.name,s.gender,l.issued_date from student_info s inner join library_record l on s.id=l.student_id inner join book_info b on b.id=l.book_id;
+ERROR:  column b.autho_namer does not exist
+LINE 1: select b.name,b.autho_namer,s.name,s.gender,l.issued_date fr...
+                      ^
+HINT:  Perhaps you meant to reference the column "b.author_name".
+LibraryManagementSystem=# select b.name,b.author_name,s.name,s.gender,l.issued_date from student_info s inner join library_record l on s.id=l.student_id inner join book_info b on b.id=l.book_id;
+       name        | author_name  |  name  | gender  | issued_date 
+-------------------+--------------+--------+---------+-------------
+ CAD               | Rohit        | hema   | female  | 2017-01-12
+ CD                | Ganju        | rinku  | male    | 2017-06-15
+ Thermo            | Ganesh       | hema   | female  | 2017-05-08
+ building material | Bhramcharya  | diksha | female  | 2017-06-11
+ TOC               | Bhati        | chhaya | female  | 2017-06-08
+ TOC               | Bhati        | diksha | female  | 2017-01-12
+ building material | Bhramcharya  | Sagar  | male    | 2017-06-02
+ TOC               | Bhati        | chhaya | female  | 2017-05-08
+ building material | Bhramcharya  | chhaya | female  | 2017-04-11
+ building material | Bhramcharya  | Sagar  | male    | 2017-06-01
+(10 rows)
+
+LibraryManagementSystem=# select b.name,b.author_name,s.name,s.gender,l.issued_date from library_record l inner join student_info s on s.id=l.student_id inner join book_info b on b.id=l.book_id;
+       name        | author_name  |  name  | gender  | issued_date 
+-------------------+--------------+--------+---------+-------------
+ CAD               | Rohit        | hema   | female  | 2017-01-12
+ CD                | Ganju        | rinku  | male    | 2017-06-15
+ Thermo            | Ganesh       | hema   | female  | 2017-05-08
+ building material | Bhramcharya  | diksha | female  | 2017-06-11
+ TOC               | Bhati        | chhaya | female  | 2017-06-08
+ TOC               | Bhati        | diksha | female  | 2017-01-12
+ building material | Bhramcharya  | Sagar  | male    | 2017-06-02
+ TOC               | Bhati        | chhaya | female  | 2017-05-08
+ building material | Bhramcharya  | chhaya | female  | 2017-04-11
+ building material | Bhramcharya  | Sagar  | male    | 2017-06-01
+(10 rows)
+
+LibraryManagementSystem=# select b.name,b.author_name,s.name,s.gender,l.issued_date from library_record l inner join student_info s on s.id=l.student_id inner join book_info b on b.id=l.book_id ans s.name='chhaya';
+ERROR:  syntax error at or near "ans"
+LINE 1: ...udent_id inner join book_info b on b.id=l.book_id ans s.name...
+                                                             ^
+LibraryManagementSystem=# select b.name,b.author_name,s.name,s.gender,l.issued_date from library_record l inner join student_info s on s.id=l.student_id inner join book_info b on b.id=l.book_id and s.name='chhaya';
+       name        | author_name  |  name  | gender  | issued_date 
+-------------------+--------------+--------+---------+-------------
+ TOC               | Bhati        | chhaya | female  | 2017-06-08
+ TOC               | Bhati        | chhaya | female  | 2017-05-08
+ building material | Bhramcharya  | chhaya | female  | 2017-04-11
+(3 rows)
+
+LibraryManagementSystem=# select b.name,b.author_name,s.name,s.gender,l.issued_date from library_record l inner join student_info s on s.id=l.student_id inner join book_info b on b.id=l.book_id and s.name in('chhaya','hema');
+       name        | author_name  |  name  | gender  | issued_date 
+-------------------+--------------+--------+---------+-------------
+ CAD               | Rohit        | hema   | female  | 2017-01-12
+ Thermo            | Ganesh       | hema   | female  | 2017-05-08
+ TOC               | Bhati        | chhaya | female  | 2017-06-08
+ TOC               | Bhati        | chhaya | female  | 2017-05-08
+ building material | Bhramcharya  | chhaya | female  | 2017-04-11
+(5 rows)
+
+LibraryManagementSystem=# select t.name,d.name,b.name,b.author_name,s.name,s.gender,l.issued_date from library_record l inner join student_info s on s.id=l.student_id inner join book_info b on b.id=l.book_id inner join librarian_info t on t.id=l.librarian_id inner join department_info d on d.id=l.dept_id and s.name in('chhaya','hema');
+ERROR:  column l.dept_id does not exist
+LINE 1: ...librarian_id inner join department_info d on d.id=l.dept_id ...
+                                                             ^
+HINT:  Perhaps you meant to reference the column "s.dept_id" or the column "b.dept_id".
+LibraryManagementSystem=# select t.name,d.name,b.name,b.author_name,s.name,s.gender,l.issued_date from library_record l inner join student_info s on s.id=l.student_id inner join book_info b on b.id=l.book_id inner join librarian_info t on t.id=l.librarian_id inner join department_info d on d.id=s.dept_id and s.name in('chhaya','hema');
+LibraryManagementSystem=# select submission_date-issued_date from library_record;
+ ?column? 
+----------
+       10
+       10
+       10
+       10
+       10
+       10
+      -11
+       10
+       10
+       10
+(10 rows)
+
+LibraryManagementSystem=# select * from library_record where id =7;
+ id | book_id | issued_date | submission_date | student_id | librarian_id 
+----+---------+-------------+-----------------+------------+--------------
+  7 |       3 | 2017-06-02  | 2017-05-22      |          4 |            2
+(1 row)
+
+LibraryManagementSystem=# update library_record set submission_date='2017-12-07'where id =7;
+UPDATE 1
+LibraryManagementSystem=# select submission_date-issued_date from library_record;
+ ?column? 
+----------
+       10
+       10
+       10
+       10
+       10
+       10
+       10
+       10
+       10
+      188
+(10 rows)
+
+LibraryManagementSystem=# select * from library_record where id =10; id | book_id | issued_date | submission_date | student_id | librarian_id 
+----+---------+-------------+-----------------+------------+--------------
+ 10 |       3 | 2017-06-01  | 2017-06-11      |          4 |            2
+(1 row)
+
+LibraryManagementSystem=# select submission_date-issued_date from library_record;
+ ?column? 
+-----------------+----------
+ rinku |       10
+ Sagar |       10
+ Sagar |      188
+(3 rows)
+
+LibraryManagementSystem=# select s.name,b.name,d.name,l.submission_date-l.issued_date,t.name from student_info s inner join library_record l on s.id=l.student_id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id inner join librarian_info t on t.id=l.librarian_id where s.gender='male ';
+ name  |       name        | name | ?column? |  name   
+-------+-------------------+------+----------+---------
+ rinku | CD                | CSE  |       10 | Garima
+ Sagar | building material | CE   |       10 | Apoorva
+ Sagar | building material | CE   |      188 | Apoorva
+(3 rows)
+
+LibraryManagementSystem=# \!clear
+Invalid command \!clear. Try \? for help.
+LibraryManagementSystem=# \!clear;
+Invalid command \!clear;. Try \? for help.
+LibraryManagementSystem=# \! clear;
+
+LibraryManagementSystem=# select version();
+LibraryManagementSystem=# alter table book_info add actual_copy int;
+ALTER TABLE
+LibraryManagementSystem=# alter table book_info add current_copy int;
+ALTER TABLE
+LibraryManagementSystem=# update book_info set actual_copy=10 and current_copy=7 where book_id=1;
+ERROR:  column "book_id" does not exist
+LINE 1: ..._info set actual_copy=10 and current_copy=7 where book_id=1;
+                                                             ^
+LibraryManagementSystem=# update book_info set actual_copy='10' and current_copy='7' where book_id='1';
+ERROR:  column "book_id" does not exist
+LINE 1: ...o set actual_copy='10' and current_copy='7' where book_id='1...
+                                                             ^
+LibraryManagementSystem=# update book_info set actual_copy='10' and current_copy='7' where book_id=1;
+ERROR:  column "book_id" does not exist
+LINE 1: ...o set actual_copy='10' and current_copy='7' where book_id=1;
+                                                             ^
+LibraryManagementSystem=# update book_info set actual_copy='10' and current_copy='7' where id=1;
+ERROR:  invalid input syntax for type boolean: "10"
+LINE 1: update book_info set actual_copy='10' and current_copy='7' w...
+                                         ^
+LibraryManagementSystem=# update book_info set actual_copy=10 and current_copy=7 where id=1;
+ERROR:  argument of AND must be type boolean, not type integer
+LINE 1: update book_info set actual_copy=10 and current_copy=7 where...
+                                         ^
+LibraryManagementSystem=# \d book_info;
+             Table "public.book_info"
+    Column    |         Type          | Modifiers 
+--------------+-----------------------+-----------
+ id           | integer               | not null
+ name         | character varying(80) | not null
+ author_name  | character varying(80) | not null
+ dept_id      | integer               | 
+ actual_copy  | integer               | 
+ current_copy | integer               | 
+Indexes:
+    "book_info_pkey" PRIMARY KEY, btree (id)
+    "book_info_name_key" UNIQUE CONSTRAINT, btree (name)
+Foreign-key constraints:
+    "book_info_dept_id_fkey" FOREIGN KEY (dept_id) REFERENCES department_info(id)
+Referenced by:
+    TABLE "library_record" CONSTRAINT "library_record_book_id_fkey" FOREIGN KEY (book_id) REFERENCES book_info(id)
+
+LibraryManagementSystem=# update book_info set actual_copy= '10' and current_copy='7' where id=1;
+ERROR:  invalid input syntax for type boolean: "10"
+LINE 1: update book_info set actual_copy= '10' and current_copy='7' ...
+                                          ^
+LibraryManagementSystem=# update book_info set actual_copy= '10', current_copy='7' where id=1;
+UPDATE 1
+LibraryManagementSystem=# update book_info set actual_copy= '6', current_copy='5' where id=2;
+UPDATE 1
+LibraryManagementSystem=# update book_info set actual_copy= '4', current_copy='3' where id=3;
+UPDATE 1
+LibraryManagementSystem=# update book_info set actual_copy= '5', current_copy='3' where id=4;
+UPDATE 1
+LibraryManagementSystem=# update book_info set actual_copy= '8', current_copy='6' where id=5;
+UPDATE 1
+LibraryManagementSystem=# select * from student_info;
+ id |  name  | birth_date | dept_id | gender  
+----+--------+------------+---------+---------
+  1 | chhaya | 1995-08-22 |       1 | female 
+  3 | diksha | 1996-02-21 |       1 | female 
+  2 | hema   | 1996-08-26 |       2 | female 
+  5 | rinku  | 1995-08-14 |       2 | male 
+  4 | Sagar  | 1994-12-12 |       3 | male 
+(5 rows)
+
+LibraryManagementSystem=# select * from book_info;
+ id |       name        | author_name  | dept_id | actual_copy | current_copy 
+----+-------------------+--------------+---------+-------------+--------------
+  1 | TOC               | Bhati        |       1 |          10 |            7
+  2 | Thermo            | Ganesh       |       2 |           6 |            5
+  3 | building material | Bhramcharya  |       3 |           4 |            3
+  4 | CD                | Ganju        |       1 |           5 |            3
+  5 | CAD               | Rohit        |       2 |           8 |            6
+(5 rows)
+
+LibraryManagementSystem=# select sum(actual_copy)-sum(current)
+LibraryManagementSystem-# ;
+ERROR:  column "actual_copy" does not exist
+LINE 1: select sum(actual_copy)-sum(current)
+                   ^
+LibraryManagementSystem=# select sum(actual_copy)-sum(current_copy) as books from book_info 
+;
+ books 
+-------
+     9
+(1 row)
+
+LibraryManagementSystem=# select name from book_info where author_name='Bhati';
+ name 
+------
+ TOC
+(1 row)
+
+LibraryManagementSystem=# select name from book_info where author_name='Ganesh'; 
+  name  
+--------
+ Thermo
+(1 row)
+
+LibraryManagementSystem=# select name from book_info where author_name=ILIKE'Ganesh';
+ERROR:  type "ilike" does not exist
+LINE 1: select name from book_info where author_name=ILIKE'Ganesh';
+                                                     ^
+LibraryManagementSystem=# select name from book_info where ILIKE author_name='Ganesh';
+ERROR:  syntax error at or near "author_name"
+LINE 1: select name from book_info where ILIKE author_name='Ganesh';
+                                               ^
+LibraryManagementSystem=# select name from book_info where iLIKE author_name='Ganesh';
+ERROR:  syntax error at or near "author_name"
+LINE 1: select name from book_info where iLIKE author_name='Ganesh';
+                                               ^
+LibraryManagementSystem=# select name from book_info where author_name=iLIKE'Ganesh';
+ERROR:  type "ilike" does not exist
+LINE 1: select name from book_info where author_name=iLIKE'Ganesh';
+                                                     ^
+LibraryManagementSystem=# select b.name,t.name from book_info b inner join library_record lon b.id=l.book_id inner join librarian_info ton t.id=l.librarian_id;
+ERROR:  syntax error at or near "b"
+LINE 1: ...me from book_info b inner join library_record lon b.id=l.boo...
+                                                             ^
+LibraryManagementSystem=# select b.name,t.name from book_info b inner join library_record l on b.id=l.book_id inner join librarian_info t on t.id=l.librarian_id;
+       name        |  name   
+-------------------+---------
+ CAD               | Sheenu
+ CD                | Garima
+ Thermo            | Apoorva
+ building material | Garima
+ TOC               | Garima
+ TOC               | Garima
+ TOC               | Sheenu
+ building material | Garima
+ building material | Apoorva
+ building material | Apoorva
+(10 rows)
+
+LibraryManagementSystem=# select count(b.name) from book_info b inner join library_record l on b.id=l.book_id inner join librarian_info t on t.id=l.librarian_id and t.id=1;
+ count 
+-------
+     5
+(1 row)
+
+LibraryManagementSystem=# select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id;
+       name        | current_copy 
+-------------------+--------------
+ TOC               |            7
+ Thermo            |            5
+ building material |            3
+ CD                |            3
+ CAD               |            6
+(5 rows)
+
+LibraryManagementSystem=# select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id and d.name=iLIKE'cse';
+ERROR:  type "ilike" does not exist
+LINE 1: ...n department_info d on b.dept_id =d.id and d.name=iLIKE'cse'...
+                                                             ^
+LibraryManagementSystem=# select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id and d.name ILIKE 'cse';
+ name | current_copy 
+------+--------------
+ TOC  |            7
+ CD   |            3
+(2 rows)
+
+LibraryManagementSystem=# select name from book_info where author_name ILIKE 'ganesh';
+  name  
+--------
+ Thermo
+(1 row)
+
+LibraryManagementSystem=# select sum(current_copy) from (select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id and d.name ILIKE 'cse');
+ERROR:  subquery in FROM must have an alias
+LINE 1: select sum(current_copy) from (select b.name,b.current_copy ...
+                                      ^
+HINT:  For example, FROM (SELECT ...) [AS] foo.
+LibraryManagementSystem=# select sum(current_copy) from ( select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id and d.name ILIKE 'cse');
+ERROR:  subquery in FROM must have an alias
+LINE 1: select sum(current_copy) from ( select b.name,b.current_copy...
+                                      ^
+HINT:  For example, FROM (SELECT ...) [AS] foo.
+LibraryManagementSystem=# select sum(current_copy) from ( select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id and d.name ILIKE 'cse') as sum;
+ sum 
+-----
+  10
+(1 row)
+
+LibraryManagementSystem=# select s.name,s.birth_date,d.name from student_info s inner join library_record l on l.student_id=s.id inner join department_info d on d.id=s.dept_id inner join book_info b on b.id=l.book_id and b.name ILIKE 'toc';
+  name  | birth_date | name 
+--------+------------+------
+ chhaya | 1995-08-22 | CSE
+ diksha | 1996-02-21 | CSE
+ chhaya | 1995-08-22 | CSE
+(3 rows)
+
+LibraryManagementSystem=# select s.name ,count(b.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id;
+ERROR:  column "s.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select s.name ,count(b.name) as books from student_info s in...
+               ^
+LibraryManagementSystem=# select s.name ,count(b.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id inner join department_info d on d.is=b.dept_id order by dept_id;
+ERROR:  column d.is does not exist
+LINE 1: ...on b.id=l.book_id inner join department_info d on d.is=b.dep...
+                                                             ^
+HINT:  Perhaps you meant to reference the column "d.id".
+LibraryManagementSystem=# select s.name ,count(b.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id order by dept_id;
+ERROR:  column reference "dept_id" is ambiguous
+LINE 1: ...r join department_info d on d.id=b.dept_id order by dept_id;
+                                                               ^
+LibraryManagementSystem=# select s.name ,count(b.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id order by b.dept_id; 
+ERROR:  column "s.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select s.name ,count(b.name) as books from student_info s in...
+               ^
+LibraryManagementSystem=# select s.name ,count(s.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id order by b.dept_id; 
+ERROR:  column "s.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select s.name ,count(s.name) as books from student_info s in...
+               ^
+LibraryManagementSystem=# select s.name ,count(s.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id group by s.name;  name  | books 
+--------+-------
+ rinku  |     1
+ Sagar  |     2
+ chhaya |     3
+ hema   |     2
+ diksha |     2
+(5 rows)
+
+LibraryManagementSystem=# select s.name,d.name from student_info s on department_info d on d.id=s.dept_id order by d.name;
+ERROR:  syntax error at or near "on"
+LINE 1: select s.name,d.name from student_info s on department_info ...
+                                                 ^
+LibraryManagementSystem=# select s.name,d.name from student_info s on department_info d on d.id=s.dept_id order by d.name;
+ERROR:  syntax error at or near "on"
+LINE 1: select s.name,d.name from student_info s on department_info ...
+                                                 ^
+LibraryManagementSystem=# select s.name,d.name from student_info s on department_info d on d.id=s.dept_id;
+ERROR:  syntax error at or near "on"
+LINE 1: select s.name,d.name from student_info s on department_info ...
+                                                 ^
+LibraryManagementSystem=# select s.name,d.name from student_info s inner join department_info d on d.id=s.dept_id order by d.name;
+  name  | name 
+--------+------
+ Sagar  | CE
+ chhaya | CSE
+ diksha | CSE
+ hema   | ME
+ rinku  | ME
+(5 rows)
+
+LibraryManagementSystem=# select count(s.name),d.name from student_info s inner join department_info d on d.id=s.dept_id order by d.name;
+ERROR:  column "d.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select count(s.name),d.name from student_info s inner join d...
+                             ^
+LibraryManagementSystem=# select count(s.name),d.name from student_info s inner join department_info d on d.id=s.dept_id group by d.name;
+ count | name 
+-------+------
+     2 | CSE
+     2 | ME
+     1 | CE
+(3 rows)
+
+LibraryManagementSystem=# select s.name ,b.name  from student_info s inner join library_record lon l.student_id=s.id inner join book_info bon b.id =l.book_id;
+ERROR:  syntax error at or near "l"
+LINE 1: ...from student_info s inner join library_record lon l.student_...
+                                                             ^
+LibraryManagementSystem=# select s.name ,b.name  from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id =l.book_id; 
+  name  |       name        
+--------+-------------------
+ hema   | CAD
+ rinku  | CD
+ hema   | Thermo
+ diksha | building material
+ chhaya | TOC
+ diksha | TOC
+ chhaya | TOC
+ chhaya | building material
+ Sagar  | building material
+ Sagar  | building material
+(10 rows)
+
+LibraryManagementSystem=# select s.name ,count(b.name)  from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id =l.book_id group by s.name;
+  name  | count 
+--------+-------
+ rinku  |     1
+ Sagar  |     2
+ chhaya |     3
+ hema   |     2
+ diksha |     2
+(5 rows)
+
+LibraryManagementSystem=# 
+
+       10
+       10
+       10
+       10
+       10
+       10
+       10
+       10
+       10
+      188
+(10 rows)
+
+LibraryManagementSystem=# select submission_date-issued_date from library_record;
+ ?column? 
+----------
+       10
+       10
+       10
+       10
+       10
+       10
+       10
+       10
+       10
+      188
+(10 rows)
+
+LibraryManagementSystem=# select submission_date-issued_date from library_record;
+ ?column? 
+----------
+       10
+       10
+       10
+       10
+       10
+       10
+       10
+       10
+       10
+      188
+(10 rows)
+
+LibraryManagementSystem=# select avg(submission_date-issued_date) as time from library_record;
+        time         
+---------------------
+ 27.8000000000000000
+(1 row)
+
+LibraryManagementSystem=# update library_record set submission_date='2017-12-07'and issued_date='2017-11-11' where id =10;
+ERROR:  invalid input syntax for type boolean: "2017-12-07"
+LINE 1: update library_record set submission_date='2017-12-07'and is...
+                                                  ^
+LibraryManagementSystem=# select avg(submission_date-issued_date) as time from library_record;
+        time         
+---------------------
+ 27.8000000000000000
+(1 row)
+
+LibraryManagementSystem=# select age(birth_date) from student_info;
+           age            
+--------------------------
+ 21 years 10 mons 4 days
+ 21 years 4 mons 5 days
+ 20 years 10 mons
+ 21 years 10 mons 12 days
+ 22 years 6 mons 14 days
+(5 rows)
+
+LibraryManagementSystem=# select b.name from book_info b inner join library_record l on l.book_id=b.id inner join student_info s on s.id=l.student_id where s.dept_id=1;
+       name        
+-------------------
+ building material
+ TOC
+ TOC
+ TOC
+ building material
+(5 rows)
+
+LibraryManagementSystem=# select s.name,b.name from book_info b inner join library_record l on l.book_id=b.id inner join student_info s on s.id=l.student_id where s.dept_id=1;
+  name  |       name        
+--------+-------------------
+ diksha | building material
+ chhaya | TOC
+ diksha | TOC
+ chhaya | TOC
+ chhaya | building material
+(5 rows)
+
+LibraryManagementSystem=# select s.name,b.name,d.name,l.submission_date-l.issued_date,t.name,b.author_name from book_info b inner join library_record l on l.book_id=b.id inner join student_info s on s.id=l.student_id inner join department_info d on l.dept_id-d.id inner join librarian_info t on t.id=l.librarian_id where s.gender=male;
+ERROR:  column l.dept_id does not exist
+LINE 1: ...s.id=l.student_id inner join department_info d on l.dept_id-...
+                                                             ^
+HINT:  Perhaps you meant to reference the column "b.dept_id" or the column "s.dept_id".
+LibraryManagementSystem=# select s.name,b.name,d.name,l.submission_date-l.issued_date,t.name,b.author_name from book_info b inner join library_record l on l.book_id=b.id inner join student_info s on s.id=l.student_id inner join department_info d on b.dept_id-d.id inner join librarian_info t on t.id=l.librarian_id where s.gender=male;
+ERROR:  argument of JOIN/ON must be type boolean, not type integer
+LINE 1: ...s.id=l.student_id inner join department_info d on b.dept_id-...
+                                                             ^
+LibraryManagementSystem=# \d book_info;
+            Table "public.book_info"
+   Column    |         Type          | Modifiers 
+-------------+-----------------------+-----------
+ id          | integer               | not null
+ name        | character varying(80) | not null
+ author_name | character varying(80) | not null
+ dept_id     | integer               | 
+Indexes:
+    "book_info_pkey" PRIMARY KEY, btree (id)
+    "book_info_name_key" UNIQUE CONSTRAINT, btree (name)
+Foreign-key constraints:
+    "book_info_dept_id_fkey" FOREIGN KEY (dept_id) REFERENCES department_info(id)
+Referenced by:
+    TABLE "library_record" CONSTRAINT "library_record_book_id_fkey" FOREIGN KEY (book_id) REFERENCES book_info(id)
+
+LibraryManagementSystem=# select s.name,b.name,d.name,l.submission_date-l.issued_date,t.name,b.author_name from book_info b inner join library_record l on l.book_id=b.id inner join student_info s on s.id=l.student_id inner join department_info d on b.dept_id=d.id inner join librarian_info t on t.id=l.librarian_id where s.gender=male;
+ERROR:  column "male" does not exist
+LINE 1: ...librarian_info t on t.id=l.librarian_id where s.gender=male;
+                                                                  ^
+LibraryManagementSystem=# select s.name,b.name,d.name,l.submission_date-l.issued_date,t.name,b.author_name from book_info b inner join library_record l on l.book_id=b.id inner join student_info s on s.id=l.student_id inner join department_info d on b.dept_id=d.id inner join librarian_info t on t.id=l.librarian_id where s.gender='male';
+ name | name | name | ?column? | name | author_name 
+------+------+------+----------+------+-------------
+(0 rows)
+
+LibraryManagementSystem=# select b.name, d.name,l.submission_date-l.issued_date,t.name from library_record l inner join student_info s on s.id=l.student_id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=l.dept_id inner join librarian_info t on t.id=l.librarian_id where s.gender='male';
+ERROR:  column l.dept_id does not exist
+LINE 1: ...id=l.book_id inner join department_info d on d.id=l.dept_id ...
+                                                             ^
+HINT:  Perhaps you meant to reference the column "s.dept_id" or the column "b.dept_id".
+LibraryManagementSystem=# select b.name, d.name,l.submission_date-l.issued_date,t.name from library_record l inner join student_info s on s.id=l.student_id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=s.dept_id inner join librarian_info t on t.id=l.librarian_id where s.gender='male';
+ name | name | ?column? | name 
+------+------+----------+------
+(0 rows)
+
+LibraryManagementSystem=# select b.name, d.name,l.submission_date-l.issued_date,t.name from library_record l inner join student_info s on s.id=l.student_id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=s.dept_id inner join librarian_info t on t.id=l.librarian_id where s.gender='female';
+ name | name | ?column? | name 
+------+------+----------+------
+(0 rows)
+
+LibraryManagementSystem=# select s.name,b.name,d.name,l.submiision_date-l.issued_date,t.name from student_info s inner join libary_record l on s.id=l.student_id inner join book_info b on b.id=l.book_id inner join department d on d.id=b.dept_id inner join librarian_info t on t.id=l.librarian_id where s.gender='male';
+ERROR:  relation "libary_record" does not exist
+LINE 1: ...issued_date,t.name from student_info s inner join libary_rec...
+                                                             ^
+LibraryManagementSystem=# select s.name,b.name,d.name,l.submiision_date-l.issued_date,t.name from student_info s inner join library_record l on s.id=l.student_id inner join book_info b on b.id=l.book_id inner join department d on d.id=b.dept_id inner join librarian_info t on t.id=l.librarian_id where s.gender='male';
+ERROR:  relation "department" does not exist
+LINE 1: ...ner join book_info b on b.id=l.book_id inner join department...
+                                                             ^
+LibraryManagementSystem=# select s.name,b.name,d.name,l.submiision_date-l.issued_date,t.name from student_info s inner join library_record l on s.id=l.student_id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id inner join librarian_info t on t.id=l.librarian_id where s.gender='male';
+ERROR:  column l.submiision_date does not exist
+LINE 1: select s.name,b.name,d.name,l.submiision_date-l.issued_date,...
+                                    ^
+HINT:  Perhaps you meant to reference the column "l.submission_date".
+LibraryManagementSystem=# select s.name,b.name,d.name,l.submission_date-l.issued_date,t.name from student_info s inner join library_record l on s.id=l.student_id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id inner join librarian_info t on t.id=l.librarian_id where s.gender='male';
+ name | name | name | ?column? | name 
+------+------+------+----------+------
+(0 rows)
+
+LibraryManagementSystem=# select s.name,b.name,d.name,l.submission_date-l.issued_date,t.name from student_info s inner join library_record l on s.id=l.student_id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id inner join librarian_info t on t.id=l.librarian_id and  s.gender='male';
+ name | name | name | ?column? | name 
+------+------+------+----------+------
+(0 rows)
+
+LibraryManagementSystem=# select s.name ,l.submission_date-l.issued_date from student_info s inner join library_record l on l.student_id=s.id;
+  name  | ?column? 
+--------+----------
+ hema   |       10
+ rinku  |       10
+ hema   |       10
+ diksha |       10
+ chhaya |       10
+ diksha |       10
+ chhaya |       10
+ chhaya |       10
+ Sagar  |       10
+ Sagar  |      188
+(10 rows)
+
+LibraryManagementSystem=# select s.name ,l.submission_date-l.issued_date from student_info s inner join library_record l on l.student_id=s.id ans s.gender='male';
+ERROR:  syntax error at or near "ans"
+LINE 1: ... inner join library_record l on l.student_id=s.id ans s.gend...
+                                                             ^
+LibraryManagementSystem=# select s.name ,l.submission_date-l.issued_date from student_info s inner join library_record l on l.student_id=s.id and s.gender='male';
+ name | ?column? 
+------+----------
+(0 rows)
+
+LibraryManagementSystem=# select s.name ,l.submission_date-l.issued_date from student_info s inner join library_record l on l.student_id=s.id and s.gender='male ';
+ name  | ?column? 
+-------+----------
+ rinku |       10
+ Sagar |       10
+ Sagar |      188
+(3 rows)
+
+LibraryManagementSystem=# select s.name,b.name,d.name,l.submission_date-l.issued_date,t.name from student_info s inner join library_record l on s.id=l.student_id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id inner join librarian_info t on t.id=l.librarian_id where s.gender='male ';
+ name  |       name        | name | ?column? |  name   
+-------+-------------------+------+----------+---------
+ rinku | CD                | CSE  |       10 | Garima
+ Sagar | building material | CE   |       10 | Apoorva
+ Sagar | building material | CE   |      188 | Apoorva
+(3 rows)
+
+LibraryManagementSystem=# 
+-------+----------
+ rinku |       10
+ Sagar |       10
+ Sagar |      188
+(3 rows)
+
+LibraryManagementSystem=# select s.name,b.name,d.name,l.submission_date-l.issued_date,t.name from student_info s inner join library_record l on s.id=l.student_id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id inner join librarian_info t on t.id=l.librarian_id where s.gender='male ';
+ name  |       name        | name | ?column? |  name   
+-------+-------------------+------+----------+---------
+ rinku | CD                | CSE  |       10 | Garima
+ Sagar | building material | CE   |       10 | Apoorva
+ Sagar | building material | CE   |      188 | Apoorva
+(3 rows)
+
+LibraryManagementSystem=# \!clear
+Invalid command \!clear. Try \? for help.
+LibraryManagementSystem=# \!clear;
+Invalid command \!clear;. Try \? for help.
+LibraryManagementSystem=# \! clear;
+
+LibraryManagementSystem=# select version();
+LibraryManagementSystem=# alter table book_info add actual_copy int;
+ALTER TABLE
+LibraryManagementSystem=# alter table book_info add current_copy int;
+ALTER TABLE
+LibraryManagementSystem=# update book_info set actual_copy=10 and current_copy=7 where book_id=1;
+ERROR:  column "book_id" does not exist
+LINE 1: ..._info set actual_copy=10 and current_copy=7 where book_id=1;
+                                                             ^
+LibraryManagementSystem=# update book_info set actual_copy='10' and current_copy='7' where book_id='1';
+ERROR:  column "book_id" does not exist
+LINE 1: ...o set actual_copy='10' and current_copy='7' where book_id='1...
+                                                             ^
+LibraryManagementSystem=# update book_info set actual_copy='10' and current_copy='7' where book_id=1;
+ERROR:  column "book_id" does not exist
+LINE 1: ...o set actual_copy='10' and current_copy='7' where book_id=1;
+                                                             ^
+LibraryManagementSystem=# update book_info set actual_copy='10' and current_copy='7' where id=1;
+ERROR:  invalid input syntax for type boolean: "10"
+LINE 1: update book_info set actual_copy='10' and current_copy='7' w...
+                                         ^
+LibraryManagementSystem=# update book_info set actual_copy=10 and current_copy=7 where id=1;
+ERROR:  argument of AND must be type boolean, not type integer
+LINE 1: update book_info set actual_copy=10 and current_copy=7 where...
+                                         ^
+LibraryManagementSystem=# \d book_info;
+             Table "public.book_info"
+    Column    |         Type          | Modifiers 
+--------------+-----------------------+-----------
+ id           | integer               | not null
+ name         | character varying(80) | not null
+ author_name  | character varying(80) | not null
+ dept_id      | integer               | 
+ actual_copy  | integer               | 
+ current_copy | integer               | 
+Indexes:
+    "book_info_pkey" PRIMARY KEY, btree (id)
+    "book_info_name_key" UNIQUE CONSTRAINT, btree (name)
+Foreign-key constraints:
+    "book_info_dept_id_fkey" FOREIGN KEY (dept_id) REFERENCES department_info(id)
+Referenced by:
+    TABLE "library_record" CONSTRAINT "library_record_book_id_fkey" FOREIGN KEY (book_id) REFERENCES book_info(id)
+
+LibraryManagementSystem=# update book_info set actual_copy= '10' and current_copy='7' where id=1;
+ERROR:  invalid input syntax for type boolean: "10"
+LINE 1: update book_info set actual_copy= '10' and current_copy='7' ...
+                                          ^
+LibraryManagementSystem=# update book_info set actual_copy= '10', current_copy='7' where id=1;
+UPDATE 1
+LibraryManagementSystem=# update book_info set actual_copy= '6', current_copy='5' where id=2;
+UPDATE 1
+LibraryManagementSystem=# update book_info set actual_copy= '4', current_copy='3' where id=3;
+UPDATE 1
+LibraryManagementSystem=# update book_info set actual_copy= '5', current_copy='3' where id=4;
+UPDATE 1
+LibraryManagementSystem=# update book_info set actual_copy= '8', current_copy='6' where id=5;
+UPDATE 1
+LibraryManagementSystem=# select * from student_info;
+ id |  name  | birth_date | dept_id | gender  
+----+--------+------------+---------+---------
+  1 | chhaya | 1995-08-22 |       1 | female 
+  3 | diksha | 1996-02-21 |       1 | female 
+  2 | hema   | 1996-08-26 |       2 | female 
+  5 | rinku  | 1995-08-14 |       2 | male 
+  4 | Sagar  | 1994-12-12 |       3 | male 
+(5 rows)
+
+LibraryManagementSystem=# select * from book_info;
+ id |       name        | author_name  | dept_id | actual_copy | current_copy 
+----+-------------------+--------------+---------+-------------+--------------
+  1 | TOC               | Bhati        |       1 |          10 |            7
+  2 | Thermo            | Ganesh       |       2 |           6 |            5
+  3 | building material | Bhramcharya  |       3 |           4 |            3
+  4 | CD                | Ganju        |       1 |           5 |            3
+  5 | CAD               | Rohit        |       2 |           8 |            6
+(5 rows)
+
+LibraryManagementSystem=# select sum(actual_copy)-sum(current)
+LibraryManagementSystem-# ;
+ERROR:  column "actual_copy" does not exist
+LINE 1: select sum(actual_copy)-sum(current)
+                   ^
+LibraryManagementSystem=# select sum(actual_copy)-sum(current_copy) as books from book_info 
+;
+ books 
+-------
+     9
+(1 row)
+
+LibraryManagementSystem=# select name from book_info where author_name='Bhati';
+ name 
+------
+ TOC
+(1 row)
+
+LibraryManagementSystem=# select name from book_info where author_name='Ganesh'; 
+  name  
+--------
+ Thermo
+(1 row)
+
+LibraryManagementSystem=# select name from book_info where author_name=ILIKE'Ganesh';
+ERROR:  type "ilike" does not exist
+LINE 1: select name from book_info where author_name=ILIKE'Ganesh';
+                                                     ^
+LibraryManagementSystem=# select name from book_info where ILIKE author_name='Ganesh';
+ERROR:  syntax error at or near "author_name"
+LINE 1: select name from book_info where ILIKE author_name='Ganesh';
+                                               ^
+LibraryManagementSystem=# select name from book_info where iLIKE author_name='Ganesh';
+ERROR:  syntax error at or near "author_name"
+LINE 1: select name from book_info where iLIKE author_name='Ganesh';
+                                               ^
+LibraryManagementSystem=# select name from book_info where author_name=iLIKE'Ganesh';
+ERROR:  type "ilike" does not exist
+LINE 1: select name from book_info where author_name=iLIKE'Ganesh';
+                                                     ^
+LibraryManagementSystem=# select b.name,t.name from book_info b inner join library_record lon b.id=l.book_id inner join librarian_info ton t.id=l.librarian_id;
+ERROR:  syntax error at or near "b"
+LINE 1: ...me from book_info b inner join library_record lon b.id=l.boo...
+                                                             ^
+LibraryManagementSystem=# select b.name,t.name from book_info b inner join library_record l on b.id=l.book_id inner join librarian_info t on t.id=l.librarian_id;
+       name        |  name   
+-------------------+---------
+ CAD               | Sheenu
+ CD                | Garima
+ Thermo            | Apoorva
+ building material | Garima
+ TOC               | Garima
+ TOC               | Garima
+ TOC               | Sheenu
+ building material | Garima
+ building material | Apoorva
+ building material | Apoorva
+(10 rows)
+
+LibraryManagementSystem=# select count(b.name) from book_info b inner join library_record l on b.id=l.book_id inner join librarian_info t on t.id=l.librarian_id and t.id=1;
+ count 
+-------
+     5
+(1 row)
+
+LibraryManagementSystem=# select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id;
+       name        | current_copy 
+-------------------+--------------
+ TOC               |            7
+ Thermo            |            5
+ building material |            3
+ CD                |            3
+ CAD               |            6
+(5 rows)
+
+LibraryManagementSystem=# select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id and d.name=iLIKE'cse';
+ERROR:  type "ilike" does not exist
+LINE 1: ...n department_info d on b.dept_id =d.id and d.name=iLIKE'cse'...
+                                                             ^
+LibraryManagementSystem=# select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id and d.name ILIKE 'cse';
+ name | current_copy 
+------+--------------
+ TOC  |            7
+ CD   |            3
+(2 rows)
+
+LibraryManagementSystem=# select name from book_info where author_name ILIKE 'ganesh';
+  name  
+--------
+ Thermo
+(1 row)
+
+LibraryManagementSystem=# select sum(current_copy) from (select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id and d.name ILIKE 'cse');
+ERROR:  subquery in FROM must have an alias
+LINE 1: select sum(current_copy) from (select b.name,b.current_copy ...
+                                      ^
+HINT:  For example, FROM (SELECT ...) [AS] foo.
+LibraryManagementSystem=# select sum(current_copy) from ( select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id and d.name ILIKE 'cse');
+ERROR:  subquery in FROM must have an alias
+LINE 1: select sum(current_copy) from ( select b.name,b.current_copy...
+                                      ^
+HINT:  For example, FROM (SELECT ...) [AS] foo.
+LibraryManagementSystem=# select sum(current_copy) from ( select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id and d.name ILIKE 'cse') as sum;
+ sum 
+-----
+  10
+(1 row)
+
+LibraryManagementSystem=# select s.name,s.birth_date,d.name from student_info s inner join library_record l on l.student_id=s.id inner join department_info d on d.id=s.dept_id inner join book_info b on b.id=l.book_id and b.name ILIKE 'toc';
+  name  | birth_date | name 
+--------+------------+------
+ chhaya | 1995-08-22 | CSE
+ diksha | 1996-02-21 | CSE
+ chhaya | 1995-08-22 | CSE
+(3 rows)
+
+LibraryManagementSystem=# select s.name ,count(b.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id;
+ERROR:  column "s.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select s.name ,count(b.name) as books from student_info s in...
+               ^
+LibraryManagementSystem=# select s.name ,count(b.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id inner join department_info d on d.is=b.dept_id order by dept_id;
+ERROR:  column d.is does not exist
+LINE 1: ...on b.id=l.book_id inner join department_info d on d.is=b.dep...
+                                                             ^
+HINT:  Perhaps you meant to reference the column "d.id".
+LibraryManagementSystem=# select s.name ,count(b.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id order by dept_id;
+ERROR:  column reference "dept_id" is ambiguous
+LINE 1: ...r join department_info d on d.id=b.dept_id order by dept_id;
+                                                               ^
+LibraryManagementSystem=# select s.name ,count(b.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id order by b.dept_id; 
+ERROR:  column "s.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select s.name ,count(b.name) as books from student_info s in...
+               ^
+LibraryManagementSystem=# select s.name ,count(s.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id order by b.dept_id; 
+ERROR:  column "s.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select s.name ,count(s.name) as books from student_info s in...
+               ^
+LibraryManagementSystem=# select s.name ,count(s.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id group by s.name;  name  | books 
+--------+-------
+ rinku  |     1
+ Sagar  |     2
+ chhaya |     3
+ hema   |     2
+ diksha |     2
+(5 rows)
+
+LibraryManagementSystem=# select s.name,d.name from student_info s on department_info d on d.id=s.dept_id order by d.name;
+ERROR:  syntax error at or near "on"
+LINE 1: select s.name,d.name from student_info s on department_info ...
+                                                 ^
+LibraryManagementSystem=# select s.name,d.name from student_info s on department_info d on d.id=s.dept_id order by d.name;
+ERROR:  syntax error at or near "on"
+LINE 1: select s.name,d.name from student_info s on department_info ...
+                                                 ^
+LibraryManagementSystem=# select s.name,d.name from student_info s on department_info d on d.id=s.dept_id;
+ERROR:  syntax error at or near "on"
+LINE 1: select s.name,d.name from student_info s on department_info ...
+                                                 ^
+LibraryManagementSystem=# select s.name,d.name from student_info s inner join department_info d on d.id=s.dept_id order by d.name;
+  name  | name 
+--------+------
+ Sagar  | CE
+ chhaya | CSE
+ diksha | CSE
+ hema   | ME
+ rinku  | ME
+(5 rows)
+
+LibraryManagementSystem=# select count(s.name),d.name from student_info s inner join department_info d on d.id=s.dept_id order by d.name;
+ERROR:  column "d.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select count(s.name),d.name from student_info s inner join d...
+                             ^
+LibraryManagementSystem=# select count(s.name),d.name from student_info s inner join department_info d on d.id=s.dept_id group by d.name;
+ count | name 
+-------+------
+     2 | CSE
+     2 | ME
+     1 | CE
+(3 rows)
+
+LibraryManagementSystem=# select s.name ,b.name  from student_info s inner join library_record lon l.student_id=s.id inner join book_info bon b.id =l.book_id;
+ERROR:  syntax error at or near "l"
+LINE 1: ...from student_info s inner join library_record lon l.student_...
+                                                             ^
+LibraryManagementSystem=# select s.name ,b.name  from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id =l.book_id; 
+  name  |       name        
+--------+-------------------
+ hema   | CAD
+ rinku  | CD
+ hema   | Thermo
+ diksha | building material
+ chhaya | TOC
+ diksha | TOC
+ chhaya | TOC
+ chhaya | building material
+ Sagar  | building material
+ Sagar  | building material
+(10 rows)
+
+LibraryManagementSystem=# select s.name ,count(b.name)  from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id =l.book_id group by s.name;
+  name  | count 
+--------+--------------+----------
+ rinku |       10
+ Sagar |       10
+ Sagar |      188
+(3 rows)
+
+LibraryManagementSystem=# select s.name,b.name,d.name,l.submission_date-l.issued_date,t.name from student_info s inner join library_record l on s.id=l.student_id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id inner join librarian_info t on t.id=l.librarian_id where s.gender='male ';
+ name  |       name        | name | ?column? |  name   
+-------+-------------------+------+----------+---------
+ rinku | CD                | CSE  |       10 | Garima
+ Sagar | building material | CE   |       10 | Apoorva
+ Sagar | building material | CE   |      188 | Apoorva
+(3 rows)
+
+LibraryManagementSystem=# \!clear
+Invalid command \!clear. Try \? for help.
+LibraryManagementSystem=# \!clear;
+Invalid command \!clear;. Try \? for help.
+LibraryManagementSystem=# \! clear;
+
+LibraryManagementSystem=# select version();
+LibraryManagementSystem=# alter table book_info add actual_copy int;
+ALTER TABLE
+LibraryManagementSystem=# alter table book_info add current_copy int;
+ALTER TABLE
+LibraryManagementSystem=# update book_info set actual_copy=10 and current_copy=7 where book_id=1;
+ERROR:  column "book_id" does not exist
+LINE 1: ..._info set actual_copy=10 and current_copy=7 where book_id=1;
+                                                             ^
+LibraryManagementSystem=# update book_info set actual_copy='10' and current_copy='7' where book_id='1';
+ERROR:  column "book_id" does not exist
+LINE 1: ...o set actual_copy='10' and current_copy='7' where book_id='1...
+                                                             ^
+LibraryManagementSystem=# update book_info set actual_copy='10' and current_copy='7' where book_id=1;
+ERROR:  column "book_id" does not exist
+LINE 1: ...o set actual_copy='10' and current_copy='7' where book_id=1;
+                                                             ^
+LibraryManagementSystem=# update book_info set actual_copy='10' and current_copy='7' where id=1;
+ERROR:  invalid input syntax for type boolean: "10"
+LINE 1: update book_info set actual_copy='10' and current_copy='7' w...
+                                         ^
+LibraryManagementSystem=# update book_info set actual_copy=10 and current_copy=7 where id=1;
+ERROR:  argument of AND must be type boolean, not type integer
+LINE 1: update book_info set actual_copy=10 and current_copy=7 where...
+                                         ^
+LibraryManagementSystem=# \d book_info;
+             Table "public.book_info"
+    Column    |         Type          | Modifiers 
+--------------+-----------------------+-----------
+ id           | integer               | not null
+ name         | character varying(80) | not null
+ author_name  | character varying(80) | not null
+ dept_id      | integer               | 
+ actual_copy  | integer               | 
+ current_copy | integer               | 
+Indexes:
+    "book_info_pkey" PRIMARY KEY, btree (id)
+    "book_info_name_key" UNIQUE CONSTRAINT, btree (name)
+Foreign-key constraints:
+    "book_info_dept_id_fkey" FOREIGN KEY (dept_id) REFERENCES department_info(id)
+Referenced by:
+    TABLE "library_record" CONSTRAINT "library_record_book_id_fkey" FOREIGN KEY (book_id) REFERENCES book_info(id)
+
+LibraryManagementSystem=# update book_info set actual_copy= '10' and current_copy='7' where id=1;
+ERROR:  invalid input syntax for type boolean: "10"
+LINE 1: update book_info set actual_copy= '10' and current_copy='7' ...
+                                          ^
+LibraryManagementSystem=# update book_info set actual_copy= '10', current_copy='7' where id=1;
+UPDATE 1
+LibraryManagementSystem=# update book_info set actual_copy= '6', current_copy='5' where id=2;
+UPDATE 1
+LibraryManagementSystem=# update book_info set actual_copy= '4', current_copy='3' where id=3;
+UPDATE 1
+LibraryManagementSystem=# update book_info set actual_copy= '5', current_copy='3' where id=4;
+UPDATE 1
+LibraryManagementSystem=# update book_info set actual_copy= '8', current_copy='6' where id=5;
+UPDATE 1
+LibraryManagementSystem=# select * from student_info;
+ id |  name  | birth_date | dept_id | gender  
+----+--------+------------+---------+---------
+  1 | chhaya | 1995-08-22 |       1 | female 
+  3 | diksha | 1996-02-21 |       1 | female 
+  2 | hema   | 1996-08-26 |       2 | female 
+  5 | rinku  | 1995-08-14 |       2 | male 
+  4 | Sagar  | 1994-12-12 |       3 | male 
+(5 rows)
+
+LibraryManagementSystem=# select * from book_info;
+ id |       name        | author_name  | dept_id | actual_copy | current_copy 
+----+-------------------+--------------+---------+-------------+--------------
+  1 | TOC               | Bhati        |       1 |          10 |            7
+  2 | Thermo            | Ganesh       |       2 |           6 |            5
+  3 | building material | Bhramcharya  |       3 |           4 |            3
+  4 | CD                | Ganju        |       1 |           5 |            3
+  5 | CAD               | Rohit        |       2 |           8 |            6
+(5 rows)
+
+LibraryManagementSystem=# select sum(actual_copy)-sum(current)
+LibraryManagementSystem-# ;
+ERROR:  column "actual_copy" does not exist
+LINE 1: select sum(actual_copy)-sum(current)
+                   ^
+LibraryManagementSystem=# select sum(actual_copy)-sum(current_copy) as books from book_info 
+;
+ books 
+-------
+     9
+(1 row)
+
+LibraryManagementSystem=# select name from book_info where author_name='Bhati';
+ name 
+------
+ TOC
+(1 row)
+
+LibraryManagementSystem=# select name from book_info where author_name='Ganesh'; 
+  name  
+--------
+ Thermo
+(1 row)
+
+LibraryManagementSystem=# select name from book_info where author_name=ILIKE'Ganesh';
+ERROR:  type "ilike" does not exist
+LINE 1: select name from book_info where author_name=ILIKE'Ganesh';
+                                                     ^
+LibraryManagementSystem=# select name from book_info where ILIKE author_name='Ganesh';
+ERROR:  syntax error at or near "author_name"
+LINE 1: select name from book_info where ILIKE author_name='Ganesh';
+                                               ^
+LibraryManagementSystem=# select name from book_info where iLIKE author_name='Ganesh';
+ERROR:  syntax error at or near "author_name"
+LINE 1: select name from book_info where iLIKE author_name='Ganesh';
+                                               ^
+LibraryManagementSystem=# select name from book_info where author_name=iLIKE'Ganesh';
+ERROR:  type "ilike" does not exist
+LINE 1: select name from book_info where author_name=iLIKE'Ganesh';
+                                                     ^
+LibraryManagementSystem=# select b.name,t.name from book_info b inner join library_record lon b.id=l.book_id inner join librarian_info ton t.id=l.librarian_id;
+ERROR:  syntax error at or near "b"
+LINE 1: ...me from book_info b inner join library_record lon b.id=l.boo...
+                                                             ^
+LibraryManagementSystem=# select b.name,t.name from book_info b inner join library_record l on b.id=l.book_id inner join librarian_info t on t.id=l.librarian_id;
+       name        |  name   
+-------------------+---------
+ CAD               | Sheenu
+ CD                | Garima
+ Thermo            | Apoorva
+ building material | Garima
+ TOC               | Garima
+ TOC               | Garima
+ TOC               | Sheenu
+ building material | Garima
+ building material | Apoorva
+ building material | Apoorva
+(10 rows)
+
+LibraryManagementSystem=# select count(b.name) from book_info b inner join library_record l on b.id=l.book_id inner join librarian_info t on t.id=l.librarian_id and t.id=1;
+ count 
+-------
+     5
+(1 row)
+
+LibraryManagementSystem=# select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id;
+       name        | current_copy 
+-------------------+--------------
+ TOC               |            7
+ Thermo            |            5
+ building material |            3
+ CD                |            3
+ CAD               |            6
+(5 rows)
+
+LibraryManagementSystem=# select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id and d.name=iLIKE'cse';
+ERROR:  type "ilike" does not exist
+LINE 1: ...n department_info d on b.dept_id =d.id and d.name=iLIKE'cse'...
+                                                             ^
+LibraryManagementSystem=# select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id and d.name ILIKE 'cse';
+ name | current_copy 
+------+--------------
+ TOC  |            7
+ CD   |            3
+(2 rows)
+
+LibraryManagementSystem=# select name from book_info where author_name ILIKE 'ganesh';
+  name  
+--------
+ Thermo
+(1 row)
+
+LibraryManagementSystem=# select sum(current_copy) from (select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id and d.name ILIKE 'cse');
+ERROR:  subquery in FROM must have an alias
+LINE 1: select sum(current_copy) from (select b.name,b.current_copy ...
+                                      ^
+HINT:  For example, FROM (SELECT ...) [AS] foo.
+LibraryManagementSystem=# select sum(current_copy) from ( select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id and d.name ILIKE 'cse');
+ERROR:  subquery in FROM must have an alias
+LINE 1: select sum(current_copy) from ( select b.name,b.current_copy...
+                                      ^
+HINT:  For example, FROM (SELECT ...) [AS] foo.
+LibraryManagementSystem=# select sum(current_copy) from ( select b.name,b.current_copy from book_info b inner join department_info d on b.dept_id =d.id and d.name ILIKE 'cse') as sum;
+ sum 
+-----
+  10
+(1 row)
+
+LibraryManagementSystem=# select s.name,s.birth_date,d.name from student_info s inner join library_record l on l.student_id=s.id inner join department_info d on d.id=s.dept_id inner join book_info b on b.id=l.book_id and b.name ILIKE 'toc';
+  name  | birth_date | name 
+--------+------------+------
+ chhaya | 1995-08-22 | CSE
+ diksha | 1996-02-21 | CSE
+ chhaya | 1995-08-22 | CSE
+(3 rows)
+
+LibraryManagementSystem=# select s.name ,count(b.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id;
+ERROR:  column "s.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select s.name ,count(b.name) as books from student_info s in...
+               ^
+LibraryManagementSystem=# select s.name ,count(b.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id inner join department_info d on d.is=b.dept_id order by dept_id;
+ERROR:  column d.is does not exist
+LINE 1: ...on b.id=l.book_id inner join department_info d on d.is=b.dep...
+                                                             ^
+HINT:  Perhaps you meant to reference the column "d.id".
+LibraryManagementSystem=# select s.name ,count(b.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id order by dept_id;
+ERROR:  column reference "dept_id" is ambiguous
+LINE 1: ...r join department_info d on d.id=b.dept_id order by dept_id;
+                                                               ^
+LibraryManagementSystem=# select s.name ,count(b.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id order by b.dept_id; 
+ERROR:  column "s.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select s.name ,count(b.name) as books from student_info s in...
+               ^
+LibraryManagementSystem=# select s.name ,count(s.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id order by b.dept_id; 
+ERROR:  column "s.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select s.name ,count(s.name) as books from student_info s in...
+               ^
+LibraryManagementSystem=# select s.name ,count(s.name) as books from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id=l.book_id inner join department_info d on d.id=b.dept_id group by s.name;  name  | books 
+--------+-------
+ rinku  |     1
+ Sagar  |     2
+ chhaya |     3
+ hema   |     2
+ diksha |     2
+(5 rows)
+
+LibraryManagementSystem=# select s.name,d.name from student_info s on department_info d on d.id=s.dept_id order by d.name;
+ERROR:  syntax error at or near "on"
+LINE 1: select s.name,d.name from student_info s on department_info ...
+                                                 ^
+LibraryManagementSystem=# select s.name,d.name from student_info s on department_info d on d.id=s.dept_id order by d.name;
+ERROR:  syntax error at or near "on"
+LINE 1: select s.name,d.name from student_info s on department_info ...
+                                                 ^
+LibraryManagementSystem=# select s.name,d.name from student_info s on department_info d on d.id=s.dept_id;
+ERROR:  syntax error at or near "on"
+LINE 1: select s.name,d.name from student_info s on department_info ...
+                                                 ^
+LibraryManagementSystem=# select s.name,d.name from student_info s inner join department_info d on d.id=s.dept_id order by d.name;
+  name  | name 
+--------+------
+ Sagar  | CE
+ chhaya | CSE
+ diksha | CSE
+ hema   | ME
+ rinku  | ME
+(5 rows)
+
+LibraryManagementSystem=# select count(s.name),d.name from student_info s inner join department_info d on d.id=s.dept_id order by d.name;
+ERROR:  column "d.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select count(s.name),d.name from student_info s inner join d...
+                             ^
+LibraryManagementSystem=# select count(s.name),d.name from student_info s inner join department_info d on d.id=s.dept_id group by d.name;
+ count | name 
+-------+------
+     2 | CSE
+     2 | ME
+     1 | CE
+(3 rows)
+
+LibraryManagementSystem=# select s.name ,b.name  from student_info s inner join library_record lon l.student_id=s.id inner join book_info bon b.id =l.book_id;
+ERROR:  syntax error at or near "l"
+LINE 1: ...from student_info s inner join library_record lon l.student_...
+                                                             ^
+LibraryManagementSystem=# select s.name ,b.name  from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id =l.book_id; 
+  name  |       name        
+--------+-------------------
+ hema   | CAD
+ rinku  | CD
+ hema   | Thermo
+ diksha | building material
+ chhaya | TOC
+ diksha | TOC
+ chhaya | TOC
+ chhaya | building material
+ Sagar  | building material
+ Sagar  | building material
+(10 rows)
+
+LibraryManagementSystem=# select s.name ,count(b.name)  from student_info s inner join library_record l on l.student_id=s.id inner join book_info b on b.id =l.book_id group by s.name;
+  name  | count 
+--------+-------
+ rinku  |     1
+ Sagar  |     2
+ chhaya |     3
+ hema   |     2
+ diksha |     2
+(5 rows)
+
+LibraryManagementSystem=# 
+
+ rinku  |     1
+ Sagar  |     2
+ chhaya |     3
+ hema   |     2
+ diksha |     2
+(5 rows)
+
+LibraryManagementSystem=# 
+
