@@ -1,0 +1,144 @@
+#1. Checking if a number is even or odd
+
+puts "enter value for a"
+puts a=gets.chomp.to_i
+if a % 2 ==0
+	puts "#{a} is even number"
+else
+	puts "#{a} is odd number"
+end
+
+OUTPUT:
+
+enter value for a
+9
+9
+9 is odd number
+
+#2. Swapping two numbers in ruby doesn'tned two variable
+
+uts "enter value of a"
+a=gets.chomp.to_i
+puts "enter value of b"
+b=gets.chomp.to_i
+a,b=b,a
+puts a
+puts b
+
+OUTPUT:
+
+enter value of a
+5
+enter value of b
+6
+6
+5
+
+
+#3. Switch Case:
+
+puts "What is your major?"
+major=gets.chomp
+
+case major
+when "computer science"
+  puts "Knowledge related to computers"
+when "Mechanical"
+  puts "Knowledge related  to machine and mechanics"
+when "Civil"
+  puts "Knowledge related to architecture and designing"
+else
+puts "thats a cool major"
+end
+
+OUTPUT:
+
+What is your major?
+computer science
+Knowledge related to computers
+
+
+#4.For loop
+
+for elem in [15,45,65,2,45,2,76]
+puts elem
+end
+
+OUTPUT:
+15
+45
+65
+2
+45
+2
+76
+
+#5. each loop
+[1,2,3,4,5].each do |elem|
+puts elem
+end
+
+or
+
+[1, 2, 3, 4, 5].each { |elem| puts elem }
+
+Output:
+
+1
+2
+3
+4
+5
+
+#6. Finding factorial of a number
+
+puts "enter a number to find factorial"
+$num=gets.chomp.to_i
+
+$fact=1
+while ($num>=1) do
+$fact=$fact*$num
+$num -=1
+end
+puts "Factorial is: #{$fact}"
+
+Output:
+
+enter a number to find factorial
+5
+Factorial is: 120
+
+
+#7. Reversing a string
+
+
+puts "enter a string"
+str=gets.chomp
+puts str.reverse
+
+Output:
+
+enter a string
+chhaya
+ayahhc
+
+#8. Prime or not
+
+puts  "enter the value to check if it is prime or not"
+$num=gets.chomp.to_i
+$i=2
+for $i in 2..($num-1)
+	if ($num % $i==0)
+	  puts "#{$num} is not a prime number"
+    else
+      puts "#{$num }is a prime number"
+      break;
+    end
+    
+end
+
+Output:
+
+enter the value to check if it is prime or not
+5
+5is a prime number
