@@ -142,3 +142,101 @@ Output:
 enter the value to check if it is prime or not
 5
 5is a prime number
+
+DATE TIME
+#1.
+time1=Time.new
+#puts "Current Time:" + time1.inspect
+time2=Time.now
+puts "Current Time:" + time2.inspect
+puts time2.year
+puts time2.month
+puts time2.day
+puts time2.wday
+puts time2.yday
+puts time2.hour
+puts time2.min
+puts time2.sec
+puts time2.usec
+puts time2.zone
+
+
+OUTPUT:
+
+Current Time:2017-06-28 17:54:16 +0530
+2017
+6
+28
+3
+179
+17
+54
+16
+73493
+IST
+
+#2. functions gm,local,utc
+
+puts Time.local(2008,7,8)
+puts Time.local(2008, 7, 8, 9, 10)
+puts Time.utc(2008, 7, 8, 9, 10)
+puts Time.gm(2008, 7, 8, 9, 10, 11) 
+
+OUTPUT:
+
+2008-07-08 00:00:00 +0530
+2008-07-08 09:10:00 +0530
+2008-07-08 09:10:00 UTC
+2008-07-08 09:10:11 UTC
+
+#3. putting values in array
+
+time=Time.new
+values=time.to_a
+p values
+
+OUTPUT:
+[49, 1, 18, 28, 6, 2017, 3, 179, false, "IST"]
+
+#4. 
+puts time=Time.now.to_i
+puts Time.at(time)
+puts Time.now.to_f
+
+Output:
+
+1498653566
+2017-06-28 18:09:26 +0530
+1498653566.4448097
+
+#5. 
+time=Time.new
+puts time.zone
+puts time.utc_offset
+puts time.zone
+puts time.isdst
+puts time.utc?
+puts time.gmtime
+puts time.localtime
+puts time.getlocal
+puts time.to_s
+puts time.ctime
+puts time.localtime
+puts time.strftime("%Y-%m-%d %H:%M:%S")
+
+Output:
+
+IST
+19800
+IST
+false
+false
+2017-06-28 12:43:05 UTC
+2017-06-28 18:13:05 +0530
+2017-06-28 18:13:05 +0530
+2017-06-28 18:16:43 +0530
+Wed Jun 28 18:16:43 2017
+2017-06-28 18:16:43 +0530
+2017-06-28 18:16:43
+
+

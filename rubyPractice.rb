@@ -164,3 +164,25 @@ calculate(5,6){|a,b| puts a * b}
 output:
 30
 
+
+MODULES:
+#1.
+module Greeting
+def cheer
+	"We won the match"
+end
+end
+class Team
+	include Greeting
+	def yipee
+		"this is an awesome day"
+	end
+end
+puts Team.new.cheer
+puts Team.new.yipee
+puts Greeting.class
+puts Module.superclass
+puts Class.superclass
+
+OUTPUT:
+
