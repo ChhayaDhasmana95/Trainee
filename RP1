@@ -209,3 +209,127 @@ OUTPUT:
 Hello World!
 Hello Chhaya!
 
+#3. Reading a File
+
+file=File.open("hlo","r")
+contents=file.read
+puts contents
+
+OUTPUT:
+
+Hello World!
+Hello Chhaya!
+
+#Every read operation begins where the last read operation ended. 
+
+file=File.open("hlo","r")
+contents=file.read
+puts contents
+contents=file.read
+puts contents
+
+output:
+
+Hello World!
+Hello Chhaya!
+
+#ANOTHER EXAMPLE
+mode="r+"
+file=File.open("hlo",mode)
+puts file.inspect
+puts file.read
+file.close
+
+OUTPUT:
+#<File:hlo>
+Hello World!
+Hello Chhaya!
+
+#BLOCK NOTATION
+
+contents =File.open("hlo",'r'){|file| file.read}
+puts contents
+
+#4. READLINES AND READLINES:
+File.open("hlo").readlines.each do |line|
+puts line
+end
+
+#USING READLINE IN CONJUNCTION WITH WHILE:
+
+file=File.open("hlo",'r')
+while !file.eof?
+line=file.readline
+puts line
+end
+
+OUTPUT:
+
+Hello World!
+Hello Chhaya!
+
+#5. 
+io_streams =Array.new
+ObjectSpace.each_object(IO){|x| io_streams << x}
+p io_streams
+
+OUTPUT:
+
+ruby output.rb
+[#<IO:<STDERR>>, #<IO:<STDOUT>>, #<IO:<STDIN>>, #<File:output.rb (closed)>, #<File:/home/beryl/.rvm/gems/ruby-2.3.1@global/gems/did_you_mean-1.0.0/lib/did_you_mean/formatter.rb (closed)>, #<File:/home/beryl/.rvm/gems/ruby-2.3.1@global/gems/did_you_mean-1.0.0/lib/did_you_mean/spell_checkers/null_checker.rb (closed)>, #<File:/home/beryl/.rvm/gems/ruby-2.3.1@global/gems/did_you_mean-1.0.0/lib/did_you_mean/spell_checkers/method_name_checker.rb (closed)>, #<File:/home/beryl/.rvm/gems/ruby-2.3.1@global/gems/did_you_mean-1.0.0/lib/did_you_mean/spell_checkers/name_error_checkers/variable_name_checker.rb (closed)>]
+S
+
+#6.
+
+what_am_i=File.open("hlo",'a') do |file|
+	file.puts "Call me chhaya"
+end
+p what_am_i
+File.open("hlo",'r'){|file| puts file.read}
+
+OUTPUT:
+
+nil
+Hello World!
+Hello Chhaya!
+Call me chhaya
+
+#7. 
+file = File.open("master", "r+")
+
+p file.read(16)
+file.rewind # try commenting out this line to see what happens!
+            # can you guess why this happens?
+
+buffer = ""
+p file.read(23, buffer)
+p buffer
+
+file.close
+
+OUTPUT:
+
+"Master loves you"
+"Master loves you as he "
+"Master loves you as he "
+
+
+#WITHOUT REWIND
+
+file = File.open("master", "r+")
+
+p file.read(16)
+#file.rewind # try commenting out this line to see what happens!
+            # can you guess why this happens?
+
+buffer = ""
+p file.read(23, buffer)
+p buffer
+
+file.close
+
+OUTPUT:
+
+"Master loves you"
+" as he loves Jacob."
+" as he loves Jacob."
