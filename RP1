@@ -1,0 +1,211 @@
+MODULES:
+
+#1. 
+
+module Greeting
+def cheer
+	"We won the match"
+end
+end
+class Team
+	include Greeting
+	def yipee
+		"this is an awesome day"
+	end
+end
+puts Team.new.cheer
+puts Team.new.yipee
+puts Greeting.class
+puts Module.superclass
+puts Class.superclass
+
+OUTPUT:
+We won the match
+this is an awesome day
+Module
+Object
+Module
+
+# 2. 
+module Perimeter
+	def perimeter
+		sides.inject(0){|sum,side| sum + side}
+	end
+end
+class Rectangle
+	include Perimeter
+	def initialize(length,breadth)
+		@length=length
+		@breadth=breadth
+	end
+	def sides
+		[@length,@breadth,@length,@breadth]
+	end
+end
+class Square
+    include Perimeter
+	def initialize(side)
+		@side=side
+	end
+	def sides
+	[@side,@side,@side,@side]
+		
+	end
+end
+puts Square.new(4).perimeter
+puts Rectangle.new(5,6).perimeter
+
+OUTPUT:
+16
+22
+
+#3. Modules as Namespaces
+module Perimeter
+class Array
+  def initialize
+  	@size = 400
+  end
+end
+end
+our_array=Perimeter::Array.new
+ruby_array=Array.new
+p our_array.class
+p ruby_array.class
+
+OUTPUT:
+ Perimeter::Array
+Array
+
+#4.
+module Gym
+   class Push
+     def up
+       40
+     end
+   end
+ end
+include Gym
+
+ module Dojo
+   class Push
+     def up
+       30
+     end
+   end
+ end
+include Dojo
+
+dojo_push = Dojo::Push.new
+p dojo_push.up
+
+gym_push = Gym::Push.new
+p gym_push.up
+
+OUTPUT:
+30
+40
+
+#5. Constant LookUp Operator 
+module Dojo
+  A=4
+  module Kata
+      B=8
+      module Roulette
+        class ScopeIn
+          def push
+            15	
+          end
+        end
+      end
+  end
+end
+A=16
+B=23
+C=42
+puts "A-#{A}"
+puts "Dojo::A -#{Dojo::A}"
+puts
+puts "B-#{B}"
+puts "Dojo::Kata::B-#{Dojo::Kata::B}"
+puts
+puts "C-#{C}"
+puts "Dojo::Kata::Roulette::ScopeIn.new.push-#{Dojo::Kata::Roulette::ScopeIn.new.push}"
+
+OUTPUT:
+A-16
+Dojo::A -4
+
+B-23
+Dojo::Kata::B-8
+
+C-42
+Dojo::Kata::Roulette::ScopeIn.new.push-15
+
+#6. Converting String into Array
+module RubyMonk
+  module Parser
+    class TextParser
+      def self.parse(str)
+        str.upcase.split("")# define method
+      end
+    end
+  end
+end
+puts RubyMonk::Parser::TextParser.parse("chhaya")
+
+
+OUTPUT:
+
+C
+H
+H
+A
+Y
+A
+
+#6. 
+module Kata
+  A = 5
+  module Dojo
+    B = 9
+    A = 7
+    
+    class ScopeIn
+      def push
+        10
+      end
+    end
+  end
+end
+
+A = 10
+puts Kata::Dojo::ScopeIn.new.push
+
+
+OUTPUT:
+10
+
+FILE IO:
+
+#1. Opening a file and writing to it
+fname='hlo'
+fd=File.open(fname,"w") # "w will delete the existing contents of file"
+fd.puts "Hello World!"	
+fd.close
+ 
+ OUTPUT:
+
+ Hello World!
+ 
+#2. Appending to "hlo" file pasing a as second argument
+
+fname='hlo'
+fd=File.open(fname,"a")
+fd.puts "Hello Chhaya!"	
+fd.close
+
+OUTPUT:
+
+Hello World!
+Hello Chhaya!
+
