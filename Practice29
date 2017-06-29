@@ -50,13 +50,13 @@ Terminating ruby program
 
  #4. PROGRAM FOR VARIABLE AND CLASSES AND OBJECT
 
- class Customer
-@@no_of_customers=0
-def initialize(id,name,addr)
-@cust_id=id
-@cust_name=name
-@cust_addr=addr
-end
+class Customer
+  @@no_of_customers=0
+  def initialize(id,name,addr)
+    @cust_id=id
+    @cust_name=name
+    @cust_addr=addr
+  end
 end
 cust1=Customer.new("1","chhaya","Faidabad")
 cust2=Customer.new("2","Diksha","Noida")
@@ -73,7 +73,7 @@ def hello
 	puts "Hello World"
 end
 end
-obj=Sample.new
+obj = Sample.new
 obj.hello
 
 Output:
@@ -92,7 +92,7 @@ class Class2
 		puts "Global Varibale in CLass2 is #{$global_variable}"
 	end
 end
-class1obj=Class1.new
+class1obj = Class1.new
 class1obj.print_global
 class2obj=Class2.new
 class2obj.print_global
@@ -380,3 +380,193 @@ Output:
 Infinite loop
 value of local variable is:0
 
+#8. Ruby methods :
+
+def test(a1 = "Ruby",a2 ="Perl")
+	puts "The Programming language is:#{a1}"
+    puts "The Programming language is #{a2}"
+end
+test "c","C++"
+test
+
+Output:
+
+The Programming language is:c
+The Programming language is C++
+The Programming language is:Ruby
+The Programming language is Perl
+
+
+#i. Ruby return Statement:
+
+def test
+i=100
+j=10
+k=0	
+return i,j,k
+end
+var=test
+puts var
+
+Output:
+
+100
+10
+0
+
+#ii. Variable number of Parameters :
+
+def sample(*test)
+	puts "The number of parameters :#{test.length}"
+	for i in 0...test.length
+		puts "the parameters are:#{test[i]}"
+	end
+end
+sample "Zara","6","F"
+sample "Mac","36","M","MCA"
+
+Output:
+
+The number of parameters :3
+the parameters are:Zara
+the parameters are:6
+the parameters are:F
+The number of parameters :4
+the parameters are:Mac
+the parameters are:36
+the parameters are:M
+the parameters are:MCA
+
+#9. Ruby Blocks:
+
+#using yield
+
+def test
+	puts "You are in method"
+    yield 
+    puts "You are again in method"
+    yield
+end
+test{puts "you are in block"}
+
+Output:
+
+You are in method
+you are in block
+You are again in method
+you are in block
+
+#Another example:
+
+def test
+	puts "You are in method"
+    yield 5
+    puts "You are again in method"
+    yield 100
+end
+test{|i| puts "you are in block #{i}"}
+
+Output:
+
+You are in method
+you are in block 5
+You are again in method
+you are in block 100
+
+#blocks an methods
+
+def test(&block)
+	block.call
+end
+test {puts "Hello World"}
+
+Output:
+
+Hello World
+
+#10. Ruby Modules:
+
+module Moral
+	Very_bad=0
+	Bad=1
+	def Moral.sin(badness)
+    puts "this is badness level: #{badness}"
+	end
+end
+puts "#{Moral::sin(14)}"
+
+Output:
+
+this is badness level: 14
+
+#i. Ruby include Statement:
+
+module Week
+	First_Day= 'Sunday'
+	def Week.weeks_in_month
+		puts "you have four weeks in month"
+	end
+	def Week.weeks_in_year
+		puts "You have 52 weeks in a year"
+	end
+end
+class Decade
+include Week
+no_of_yrs=10
+def no_of_months
+	puts Week::First_Day
+	number=10*12
+	puts number
+end
+d1=Decade.new
+puts Week::First_Day
+Week.weeks_in_month
+Week.weeks_in_year
+d1.no_of_months
+end
+
+Output:
+
+Sunday
+you have four weeks in month
+You have 52 weeks in a year
+Sunday
+120
+
+
+#ii. Ruby Mixins:
+
+module Dojo
+  A=4
+  module Kata
+      B=8
+      module Roulette
+        class ScopeIn
+          def push
+            15	
+          end
+        end
+      end
+  end
+end
+A=16
+B=23
+C=42
+puts "A-#{A}"
+puts "Dojo::A -#{Dojo::A}"
+puts
+puts "B-#{B}"
+puts "Dojo::Kata::B-#{Dojo::Kata::B}"
+puts
+puts "C-#{C}"
+puts "Dojo::Kata::Roulette::ScopeIn.new.push-#{Dojo::Kata::Roulette::ScopeIn.new.push}"
+
+OUTPUT:
+A-16
+Dojo::A -4
+
+B-23
+Dojo::Kata::B-8
+
+C-42
+Dojo::Kata::Roulette::ScopeIn.new.push-15
