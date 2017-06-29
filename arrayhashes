@@ -282,3 +282,178 @@ starevilnoonliverat
  => "{:options=>200, \"b\"=>600}" 
 2.3.1 :141 > 
 
+
+
+STRINGS :
+
+
+2.3.1 :001 > "Hlo!" * 3
+ => "Hlo!Hlo!Hlo!" 
+2.3.1 :002 > "HLo" +self.to_s
+ => "HLomain" 
+2.3.1 :003 > a = "heloo"
+ => "heloo" 
+2.3.1 :004 > a << "world"
+ => "helooworld" 
+2.3.1 :005 > a.concat("-")
+ => "helooworld-" 
+2.3.1 :006 > "abcdef" <=> "abcd"
+ => 1 
+2.3.1 :007 > "abcdef" <=> "abcdefgh"
+ => -1 
+2.3.1 :008 > "abcdef" <=> "abcdef"
+ => 0 
+2.3.1 :009 > a = "hello there"
+ => "hello there" 
+2.3.1 :010 > a[2,3]
+ => "llo" 
+2.3.1 :011 > a[-4,-2]
+ => nil 
+2.3.1 :012 > a[-4..-2]
+ => "her" 
+2.3.1 :013 > a[/[aeiou(.)\1]/]
+ => "e" 
+2.3.1 :014 > a[/[aeiou(.)\1]/,0]
+ => "e" 
+2.3.1 :015 > a[/[aeiou(.)\1]/,0],5
+SyntaxError: (irb):15: syntax error, unexpected '\n', expecting &. or :: or '[' or '.'
+	from /home/beryl/.rvm/rubies/ruby-2.3.1/bin/irb:11:in `<main>'
+2.3.1 :016 > a[/[aeiou(.)\1]/,5]
+ => nil 
+2.3.1 :017 > a[/[aeiou(.)\1]/,4]
+ => nil 
+2.3.1 :018 > a[/[aeiou(.)\1]/,2]
+ => nil 
+2.3.1 :019 > a["lo"]
+ => "lo" 
+2.3.1 :020 > hello.capitalize!
+NameError: undefined local variable or method `hello' for main:Object
+Did you mean?  help
+	from (irb):20
+	from /home/beryl/.rvm/rubies/ruby-2.3.1/bin/irb:11:in `<main>'
+2.3.1 :021 > "hello".capitalize!
+ => "Hello" 
+2.3.1 :022 > "123ABNC".capitalize
+ => "123abnc" 
+2.3.1 :023 > "hello".casecmp("hello")
+ => 0 
+2.3.1 :024 > "hello".casecmp("hellob")
+ => -1 
+2.3.1 :025 > "hellobc".casecmp("hellob")
+ => 1 
+2.3.1 :026 > "hello".center(4)
+ => "hello" 
+2.3.1 :027 > "hello".center(20)
+ => "       hello        " 
+2.3.1 :028 > "hello".center(20,*)
+SyntaxError: (irb):28: syntax error, unexpected ')'
+	from /home/beryl/.rvm/rubies/ruby-2.3.1/bin/irb:11:in `<main>'
+2.3.1 :029 > "hello".center(20,"*")
+ => "*******hello********" 
+2.3.1 :030 > "hello".chop
+ => "hell" 
+2.3.1 :031 > "hello".chomp
+ => "hello" 
+2.3.1 :032 > "hello\n"
+ => "hello\n" 
+2.3.1 :033 > "hello\n".chop
+ => "hello" 
+2.3.1 :034 > "hello\n".chomp
+ => "hello" 
+2.3.1 :035 > "hello".count
+ArgumentError: wrong number of arguments (given 0, expected 1+)
+	from (irb):35:in `count'
+	from (irb):35
+	from /home/beryl/.rvm/rubies/ruby-2.3.1/bin/irb:11:in `<main>'
+2.3.1 :036 > "hello".count "lo"
+ => 3 
+2.3.1 :037 > "hello".each_char{|c| print c," "}
+h e l l o  => "hello" 
+2.3.1 :038 > "hello".each_codepoint{|c| print c," "}
+104 101 108 108 111  => "hello" 
+2.3.1 :039 > "hello world".each_line{|s| p s}
+"hello world"
+ => "hello world" 
+2.3.1 :040 > "hello world".each_line('l'){|s| p s}
+"hel"
+"l"
+"o worl"
+"d"
+ => "hello world" 
+2.3.1 :041 > "hello world".each_line(' '){|s| p s}
+"hello "
+"world"
+ => "hello world" 
+2.3.1 :042 > "".empty?
+ => true 
+2.3.1 :043 > a "hello world"
+NoMethodError: undefined method `a' for main:Object
+	from (irb):43
+	from /home/beryl/.rvm/rubies/ruby-2.3.1/bin/irb:11:in `<main>'
+2.3.1 :044 > a =  "hello world"
+ => "hello world" 
+2.3.1 :045 > a.start_with?"h"
+ => true 
+2.3.1 :046 > a.end_with?"world"
+ => true 
+2.3.1 :047 > "hello".gsub(/h/,"p")
+ => "pello" 
+2.3.1 :048 > "hello".include?'h'
+ => true 
+2.3.1 :050 > "hello".index('e')
+ => 1 
+2.3.1 :051 > "hello".index('l')
+ => 2 
+2.3.1 :052 > "hello".index('l')
+ => 2 
+2.3.1 :053 > "hello".index('l',2)
+ => 2 
+2.3.1 :054 > "hello".insert(4,'f')
+ => "hellfo" 
+2.3.1 :055 > "hello".inspect
+ => "\"hello\"" 
+2.3.1 :056 > "hello".partition("l")
+ => ["he", "l", "lo"] 
+2.3.1 :057 > "hello".rpartition("l")
+ => ["hel", "l", "o"] 
+ 2.3.1 :058 > "hello".split
+ => ["hello"] 
+2.3.1 :059 > "hello".split("el")
+ => ["h", "lo"] 
+2.3.1 :060 > "hello".squeeze
+ => "helo" 
+2.3.1 :061 > " hello  ".strip
+ => "hello" 
+2.3.1 :062 > "hello".sub(/[aeiou]/,'*')
+ => "h*llo" 
+2.3.1 :063 > "hello".gsub(/[aeiou]/,'*')
+ => "h*ll*" 
+2.3.1 :064 > "hello".succ
+ => "hellp" 
+2.3.1 :065 > 'Hello'.swapcase
+ => "hELLO" 
+2.3.1 :066 > 'Hello'.to_c
+ => (0+0i) 
+2.3.1 :067 > 'Hello'.to_f
+ => 0.0 
+2.3.1 :068 > 'Hello'.to_i
+ => 0 
+2.3.1 :069 > 'Hello'.to_r
+ => (0/1) 
+2.3.1 :070 > 'Hello'.to_s
+ => "Hello" 
+2.3.1 :071 > 'Hello'.to_str
+ => "Hello" 
+2.3.1 :072 > 'Hello'.to_sym
+ => :Hello 
+2.3.1 :073 > 'Hello'.tr('el','ip')
+ => "Hippo" 
+2.3.1 :074 > 'Hello'.tr_s('l','o')
+ => "Heoo" 
+2.3.1 :075 > 'Hello'.tr_s('l','r')
+ => "Hero" 
+2.3.1 :076 > "9".upto("15").to_a
+ => ["9", "10", "11", "12", "13", "14", "15"] 
+2.3.1 :077 > "9".downto("2").to_a
+
+
