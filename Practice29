@@ -1,0 +1,382 @@
+WORKING IN IRB :
+
+#1.
+
+2.3.1 :001 > print <<EOF
+2.3.1 :002"> this is the very first line
+2.3.1 :003"> m just trying it out
+2.3.1 :004"> EOF
+this is the very first line
+m just trying it out
+ => nil 
+2.3.1 :005 > print <<"EOC"
+2.3.1 :006"> echo hi there
+2.3.1 :007"> echo lo there
+2.3.1 :008"> EOC
+echo hi there
+echo lo there
+ => nil 
+
+
+#2. RUBY BEGIN AND END STATEMENT:
+
+puts "this is main ruby program"
+END{
+	puts "Terminating ruby program"
+}
+
+BEGIN{
+	puts "initializing ruby program "
+}
+
+OUTPUT:
+
+initializing ruby program 
+this is main ruby program
+Terminating ruby program
+
+#3. RUBY COMMENTS:
+ Single Line comment
+
+ #this is a single line comment
+
+ Multiple Line Comment
+
+ =begin
+ this is  
+ a multiline
+ comment
+ =end
+
+ #4. PROGRAM FOR VARIABLE AND CLASSES AND OBJECT
+
+ class Customer
+@@no_of_customers=0
+def initialize(id,name,addr)
+@cust_id=id
+@cust_name=name
+@cust_addr=addr
+end
+end
+cust1=Customer.new("1","chhaya","Faidabad")
+cust2=Customer.new("2","Diksha","Noida")
+puts cust1
+puts cust2
+
+
+#5.MEMBER FUNCTIONS IN RUBY CLASS
+ 
+ #i. Hello world program
+
+ class Sample
+def hello
+	puts "Hello World"
+end
+end
+obj=Sample.new
+obj.hello
+
+Output:
+Hello World
+
+#ii.  Global Variable Program :
+
+ $global_variable = 10
+class Class1
+	def print_global
+      puts "Global variable in Class1 is #{$global_variable}" 
+	end
+end
+class Class2
+	def print_global
+		puts "Global Varibale in CLass2 is #{$global_variable}"
+	end
+end
+class1obj=Class1.new
+class1obj.print_global
+class2obj=Class2.new
+class2obj.print_global
+
+Output:
+
+Global variable in Class1 is 10
+Global Varibale in CLass2 is 10
+
+#iii. Instance Variable Program
+
+class Customer
+@@no_of_customers=0
+def initialize(id,name,addr)
+@cust_id=id
+@cust_name=name
+@cust_addr=addr
+end
+def display_details
+	puts "Cutomer id #@cust_id"
+	puts "Customer name #@cust_name"
+	puts "Customer address #@cust_addr"
+end
+end
+cust1=Customer.new("1","chhaya","Faidabad")
+cust2=Customer.new("2","Diksha","Noida")
+
+#call methods
+
+cust2.display_details()
+cust1.display_details()
+
+Output:
+
+Cutomer id 2
+Customer name Diksha
+Customer address Noida
+Cutomer id 1
+Customer name chhaya
+Customer address Faidabad
+
+#iv. Ruby Class Variables"
+
+class Customer
+@@no_of_customers=0
+def initialize(id,name,addr)
+@cust_id=id
+@cust_name=name
+@cust_addr=addr
+end
+def display_details
+	puts "Cutomer id #@cust_id"
+	puts "Customer name #@cust_name"
+	puts "Customer address #@cust_addr"
+end
+def total_no_of_customers
+	@@no_of_customers += 1
+	puts "Total No Of Costomers : #@@no_of_customers"
+end
+end
+cust1=Customer.new("1","chhaya","Faidabad")
+cust2=Customer.new("2","Diksha","Noida")
+
+#call methods
+
+cust2.total_no_of_customers()
+cust1.total_no_of_customers()
+
+Output:
+
+Total No Of Costomers : 1
+Total No Of Costomers : 2
+
+#v. Ruby constant
+
+class Example
+Var1=100
+Var2=200
+def show
+	puts "Value of first constant is #{Var1}"
+	puts "Value of seconf constant is #{Var2}"
+end
+end
+obj=Example.new
+obj.show
+
+
+Output:
+
+Value of first constant is 100
+Value of seconf constant is 200
+
+#6. Ruby Array
+
+ary=["chhaya",24,53,"string",[1,2,3]]
+ary.each do |i|
+	puts i
+ 
+end
+
+Output:
+
+chhaya
+24
+53
+string
+1
+2
+3
+
+
+#7. Ruby If..Else
+x=1
+if x >2
+	puts "x is greate rthan 2"
+elsif x<=2 and x!=0
+	puts "x is 1"
+else
+	puts "I can't guess the number"
+end
+
+Output:
+
+x is 1
+
+
+#i. If modifier
+
+$debug=1
+print "debug\n" if $debug
+
+Output:
+
+debug
+
+#ii. Unless Statement:
+
+x=1
+unless x>=2
+	puts "x is less than 2"
+else
+	puts "x is greater than 2"
+end
+
+Output:
+x is less than 2
+
+#iii.
+$var =  1
+print "1 -- Value is set\n" if $var
+print "2 -- Value is set\n" unless $var
+
+$var = false
+print "3 -- Value is set\n" unless $var
+
+Output:
+
+1 -- Value is set
+3 -- Value is set
+
+#iv.  Ruby Case statement:
+
+puts "Enter your age"
+$age=gets.chomp.to_i
+case $age
+when 0..2
+	puts "baby"
+when 3..6
+	puts "little child"
+when 7..12
+	puts "child"
+when 13..18
+	puts "youth"
+else
+	puts "adult"
+end
+
+Output:
+
+Enter your age
+21
+adult
+
+#v. Ruby while Statement
+
+$i=0
+$num=5
+while $i < $num do
+	puts "Inside the loop i=#{$i}"
+	$i +=1
+end
+
+Output:
+
+Inside the loop i=0
+Inside the loop i=1
+Inside the loop i=2
+Inside the loop i=3
+Inside the loop i=4
+
+#vi. Ruby Until Statement
+
+$i=0
+$num=5
+until $i > $num do
+	puts "Inside the loop i=#{$i}"
+	$i +=1
+end
+
+Output:
+
+Inside the loop i=0
+Inside the loop i=1
+Inside the loop i=2
+Inside the loop i=3
+Inside the loop i=4
+Inside the loop i=5
+
+#vii. Ruby for Statement
+
+for i in 0..7
+	puts "value of local variable is:#{i}"
+end
+
+or
+
+(0..5).each do |i|
+	puts "value of local variable is #{i}"
+end 
+
+Output:
+
+value of local variable is:0
+value of local variable is:1
+value of local variable is:2
+value of local variable is:3
+value of local variable is:4
+value of local variable is:5
+value of local variable is:6
+value of local variable is:7
+
+
+#viii. Ruby break Statement:
+
+for i in 0..5
+	if i>2 then
+		break
+	end
+	puts "value of local variable is:#{i}"
+end
+
+Output:
+
+value of local variable is:0
+value of local variable is:1
+value of local variable is:2
+
+#ix. Ruby next Statement
+
+for i in 0..5
+	if i<2 then
+		next
+	end
+	puts "value of local variable is:#{i}"
+end
+
+Output:
+
+value of local variable is:2
+value of local variable is:3
+value of local variable is:4
+value of local variable is:5
+
+
+#x. Ruby redo Statement:
+
+for i in 0..5
+	if i<2 then
+	  puts "value of local variable is:#{i}"
+      redo
+  end
+end
+
+Output:
+Infinite loop
+value of local variable is:0
+
