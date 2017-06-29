@@ -1,0 +1,284 @@
+ARRAYS AND HASHES:
+
+#Array
+
+#1.at
+
+ary = [1,2,3,4,5,"chhaya"]
+#ary.each { |ary| puts ary }
+puts ary.at(2)
+
+Output:
+
+3
+
+#2. fetch
+
+ary = [1,2,3,4,5,"chhaya"]
+puts ary.fetch(8,"added")
+
+Output:
+
+added
+
+
+#3. IRB
+
+2.3.1 :002 > arr=[1,2,3,4,5,68,95,"chhaya","dishu"]
+ => [1, 2, 3, 4, 5, 68, 95, "chhaya", "dishu"] 
+2.3.1 :003 > arr.first
+ => 1 
+2.3.1 :004 > arr.last
+ => "dishu" 
+2.3.1 :005 > arr.take(5)
+ => [1, 2, 3, 4, 5] 
+2.3.1 :006 > arr.drop(2)
+ => [3, 4, 5, 68, 95, "chhaya", "dishu"] 
+ 2.3.1 :007 > arr.length
+ => 9 
+2.3.1 :008 > arr.count
+ => 9 
+2.3.1 :010 > arr.empty?
+ => false 
+2.3.1 :011 > arr.include? "chhaya"
+ => true 
+ 2.3.1 :012 > arr.push(8,10)
+ => [1, 2, 3, 4, 5, 68, 95, "chhaya", "dishu", 8, 10]
+ 2.3.1 :015 > arr << "piya"
+ => [1, 2, 3, 4, 5, 68, 95, "chhaya", "dishu", 8, 10, "piya"] 
+ arr.unshift("one")
+ => ["one", 1, 2, 3, 4, 5, 68, 95, "chhaya", "dishu", 8, 10, "piya"] 
+ 
+2.3.1 :018 > arr.insert(3,"apple")
+ => ["one", 1, 2, "apple", 3, 4, 5, 68, 95, "chhaya", "dishu", 8, 10, "piya"] 
+2.3.1 :019 > arr.insert(3,"pear","toffee")
+ => ["one", 1, 2, "pear", "toffee", "apple", 3, 4, 5, 68, 95, "chhaya", "dishu", 8, 10, "piya"] 
+2.3.1 :020 > arr.pop
+ => "piya" 
+2.3.1 :021 > arr.shift
+ => "one" 
+2.3.1 :022 > arr
+ => [1, 2, "pear", "toffee", "apple", 3, 4, 5, 68, 95, "chhaya", "dishu", 8, 10]
+ 2.3.1 :028 > arr.shift
+ => 1 
+2.3.1 :029 > arr.delete_at(5)
+ => 4 
+2.3.1 :030 > arr
+ => [2, "pear", "toffee", "apple", 3, 5, 68, 95, "chhaya", "dishu", 8, 10] 
+2.3.1 :031 > arr.compact
+ => [2, "pear", "toffee", "apple", 3, 5, 68, 95, "chhaya", "dishu", 8, 10] 
+2.3.1 :032 > arr.uniq
+ => [2, "pear", "toffee", "apple", 3, 5, 68, 95, "chhaya", "dishu", 8, 10] 
+# Return the elements of array in reverse order
+
+words = %w[rat live on no evil star]
+str = "  "
+words.reverse_each{|word| str += "#{word}"}
+puts str
+
+Output:
+
+starevilnoonliverat
+
+#irb
+
+2.3.1 :001 > arr = [1,2,3,4,5]
+ => [1, 2, 3, 4, 5] 
+2.3.1 :002 > arr.map{|a| a*5}
+ => [5, 10, 15, 20, 25] 
+2.3.1 :003 > arr.select {|s| s>3}
+ => [4, 5] 
+2.3.1 :004 > arr.reject{|a| a<3}
+ => [3, 4, 5] 
+2.3.1 :005 > arr.drop_while{|a| a <4}
+ => [4, 5] 
+2.3.1 :006 > arr
+ => [1, 2, 3, 4, 5] 
+2.3.1 :007 > arr.delete_if{|a| a<2}
+ => [2, 3, 4, 5] 
+2.3.1 :008 > arr
+ => [2, 3, 4, 5] 
+2.3.1 :009 > arr.keep_if{|a| a>3}
+ => [4, 5] 
+2.3.1 :010 > arr
+ => [4, 5] 
+2.3.1 :013 > Array.[](1,2,3)
+ => [1, 2, 3] 
+2.3.1 :014 > Array[1,6,4]
+ => [1, 6, 4] 
+2.3.1 :015 > first_array = ["matz","guide"]
+ => ["matz", "guide"] 
+2.3.1 :016 > second_array=Array.new(first_array)
+ => ["matz", "guide"] 
+2.3.1 :017 > first_array.equal?second_array
+ => false 
+2.3.1 :018 > first_array.equal?second_array.to_ary
+ => false 
+2.3.1 :019 > Array.new(3){|index| index**2}
+ => [0, 1, 4] 
+2.3.1 :019 > Array.new(3){|index| index**2}
+ => [0, 1, 4] 
+2.3.1 :020 > a=Array.new(2,Hash.new)
+ => [{}, {}] 
+2.3.1 :021 > a[0]["chhaya"]="dhasmana"
+ => "dhasmana" 
+2.3.1 :022 > a[0]['chhaya'] = 'dhasmana'
+ => "dhasmana" 
+2.3.1 :023 > a[1]["dishu"] = "Upreti"
+ => "Upreti" 
+2.3.1 :024 > a
+ => [{"chhaya"=>"dhasmana", "dishu"=>"Upreti"}, {"chhaya"=>"dhasmana", "dishu"=>"Upreti"}] 
+2.3.1 :025 > a[0]
+ => {"chhaya"=>"dhasmana", "dishu"=>"Upreti"} 
+2.3.1 :026 > b=Array.new(2){Hash.new}
+ => [{}, {}] 
+2.3.1 :027 > b[0]["cat"] = "dog"
+ => "dog" 
+2.3.1 :028 > b[1]["cat"] = "gol"
+ => "gol" 
+2.3.1 :029 > b
+ => [{"cat"=>"dog"}, {"cat"=>"gol"}] 
+2.3.1 :030 > b[0]
+ => {"cat"=>"dog"} 
+2.3.1 :033 > [1,2,3,4,5,5] * 3
+ => [1, 2, 3, 4, 5, 5, 1, 2, 3, 4, 5, 5, 1, 2, 3, 4, 5, 5] 
+2.3.1 :034 > [1,2,3,4,5,5] * " "
+ => "1 2 3 4 5 5" 
+2.3.1 :035 > [1,2,3,4,5,5] + [1,2,8,9,7,3]
+ => [1, 2, 3, 4, 5, 5, 1, 2, 8, 9, 7, 3] 
+2.3.1 :036 > [1,2,3,4,5,5] - [1,2,8,9,7,3]
+ => [4, 5, 5] 
+2.3.1 :037 > a = [1,2,3,4,5,5] 
+ => [1, 2, 3, 4, 5, 5] 
+2.3.1 :038 > a << 7 << 8 << "a"
+ => [1, 2, 3, 4, 5, 5, 7, 8, "a"] 
+2.3.1 :039 > [1,2,3,4,5,5] <=> [1,2,8,9,7,3]
+ => -1 
+2.3.1 :040 > [1,2,3,4,5,5] <=> [1,2,3,4,5,5]
+ => 0 
+2.3.1 :041 > require 'abbrev'
+ => true 
+2.3.1 :042 > %w{car, cone}.abbrev
+ => {"car,"=>"car,", "car"=>"car,", "ca"=>"car,", "cone"=>"cone", "con"=>"cone", "co"=>"cone"} 
+2.3.1 :043 > %w{car, cone}.abbrev(/^.a/)
+ => {"car,"=>"car,", "car"=>"car,", "ca"=>"car,"} 
+2.3.1 :044 > s=[1,2,3,4,5]
+ => [1, 2, 3, 4, 5] 
+2.3.1 :045 > s1=["chhay","dishu",1,2]
+ => ["chhay", "dishu", 1, 2] 
+2.3.1 :046 > a=[s,s1]
+ => [[1, 2, 3, 4, 5], ["chhay", "dishu", 1, 2]] 
+2.3.1 :047 > a.assoc("chhay")
+ => ["chhay", "dishu", 1, 2] 
+2.3.1 :050 > s.bsearch{|x| x>=4 }
+ => 4 
+2.3.1 :051 > a.clear
+ => [] 
+2.3.1 :052 > s1.compact
+ => ["chhay", "dishu", 1, 2] 
+2.3.1 :053 > s.concat(s1)
+ => [1, 2, 3, 4, 5, "chhay", "dishu", 1, 2] 
+2.3.1 :054 > s.count
+ => 9 
+2.3.1 :055 > s.count(2)
+ => 2 
+2.3.1 :056 > s.fill("x")
+ => ["x", "x", "x", "x", "x", "x", "x", "x", "x"] 
+2.3.1 :057 > s.fill("y",0..2)
+ => ["y", "y", "y", "x", "x", "x", "x", "x", "x"] 
+2.3.1 :058 > a.fill{|i| i*i}
+ => [] 
+2.3.1 :059 > a.fill(-2){|i| i*i}
+ => [] 
+2.3.1 :060 > a.index{|x| x== "b"}
+ => nil 
+2.3.1 :061 > a.index{|x| x== "x"}
+ => nil 
+2.3.1 :062 > a.index{|x| x== "y"}
+ => nil 
+2.3.1 :063 > a.empty?
+ => true 
+2.3.1 :064 > s.fill{|i| i*i}
+ => [0, 1, 4, 9, 16, 25, 36, 49, 64] 
+2.3.1 :065 > s.index{|x| x== "y"}
+ => nil 
+2.3.1 :066 > s.fill("y",0..2)
+ => ["y", "y", "y", 9, 16, 25, 36, 49, 64] 
+2.3.1 :067 > s.index{|x| x== "y"}
+ => 0 
+2.3.1 :068 > s.flatten
+ => ["y", "y", "y", 9, 16, 25, 36, 49, 64] 
+2.3.1 :069 > s.flatten(2)
+ => ["y", "y", "y", 9, 16, 25, 36, 49, 64] 
+2.3.1 :070 > s.flatten(1)
+ => ["y", "y", "y", 9, 16, 25, 36, 49, 64] 
+2.3.1 :071 > s.to_s
+ => "[\"y\", \"y\", \"y\", 9, 16, 25, 36, 49, 64]" 
+2.3.1 :072 > s.join
+ => "yyy91625364964" 
+2.3.1 :073 > s.join("-")
+ => "y-y-y-9-16-25-36-49-64" 
+
+
+
+ HASHES:
+
+
+ 2.3.1 :110 > options={font_size: 10,font_family: "Arial"}
+ => {:font_size=>10, :font_family=>"Arial"}
+ 2.3.1 :113 > options[:font_size]
+ => 10 
+2.3.1 :114 > options.invert
+ => {10=>:font_size, "Arial"=>:font_family} 
+2.3.1 :115 > options.keys
+ => [:font_size, :font_family] 
+ 2.3.1 :117 > options.values
+ => [10, "Arial"] 
+2.3.1 :118 > options.length
+ => 2 
+2.3.1 :119 > a={one: 1,two: 2}
+ => {:one=>1, :two=>2} 
+2.3.1 :120 > a.merge(options)
+ => {:one=>1, :two=>2, :font_size=>10, :font_family=>"Arial"} 
+2.3.1 :121 > a.rassoc(:two)
+ => nil 
+2.3.1 :122 > a.rassoc("two")
+ => nil 
+2.3.1 :123 > a.rassoc(2)
+ => [:two, 2] 
+2.3.1 :124 > h={a: 100,options: 200}
+ => {:a=>100, :options=>200} 
+2.3.1 :125 > h[a]
+ => nil 
+2.3.1 :126 > h[100]
+ => nil 
+2.3.1 :127 > h.rehash
+ => {:a=>100, :options=>200} 
+2.3.1 :128 > h[a]
+ => nil 
+2.3.1 :129 > a[0]="z"
+ => "z" 
+2.3.1 :130 > h[a]
+ => nil 
+2.3.1 :131 > h.rehash
+ => {:a=>100, :options=>200} 
+2.3.1 :132 > h[a]
+ => nil 
+2.3.1 :133 > h.shift
+ => [:a, 100] 
+2.3.1 :134 > h
+ => {:options=>200} 
+2.3.1 :135 > h.store("b",600)
+ => 600 
+2.3.1 :136 > h
+ => {:options=>200, "b"=>600} 
+2.3.1 :137 > h.to_a
+ => [[:options, 200], ["b", 600]] 
+2.3.1 :138 > h.to_h
+ => {:options=>200, "b"=>600} 
+2.3.1 :139 > h.to_hash
+ => {:options=>200, "b"=>600} 
+2.3.1 :140 > h.to_s
+ => "{:options=>200, \"b\"=>600}" 
+2.3.1 :141 > 
+
